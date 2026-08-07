@@ -1929,3 +1929,28 @@ footer {
         color: var(--primary);
     }
 }
+
+/* ---------- Footer Credits ---------- */
+.footer-bottom .credits-link {
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.footer-bottom .credits-link:hover {
+    color: var(--white);
+    transform: scale(1.05);
+}
+
+.footer-bottom .heart-icon {
+    color: #ff4444;
+    display: inline-block;
+    animation: heartBeat 1.5s ease-in-out infinite;
+}
+
+@keyframes heartBeat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}

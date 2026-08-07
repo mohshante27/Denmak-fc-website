@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOHAMMED SWABRI MSHINDO - Credits</title>
+    <link rel="icon" type="image/png" href="images/logo.png">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional styles for the credits page */
+        .credits-profile {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: var(--white);
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        /* RECTANGULAR profile image */
+        .credits-profile .profile-image {
+            width: 200px;
+            height: 250px;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            border: 4px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--light-gray);
+        }
+
+        .credits-profile .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Fallback when no image */
+        .credits-profile .profile-image .no-image {
+            font-size: 4rem;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 100%;
+            background: var(--gold);
+        }
+
+        .credits-profile .profile-name {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .credits-profile .profile-title {
+            color: var(--gold-dark);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .credits-profile .profile-bio {
+            color: #555;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            text-align: left;
+            padding: 0 20px;
+        }
+
+        .credits-profile .social-links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .credits-profile .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 12px 20px;
+            border-radius: 30px;
+            background: var(--light-gray);
+            color: var(--primary);
+            font-weight: bold;
+            text-decoration: none;
+            transition: var(--transition);
+            border: 2px solid transparent;
+        }
+
+        .credits-profile .social-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .credits-profile .social-link.facebook {
+            background: #1877f2;
+            color: white;
+        }
+
+        .credits-profile .social-link.facebook:hover {
+            background: #1664d9;
+        }
+
+        .credits-profile .social-link.email {
+            background: #ea4335;
+            color: white;
+        }
+
+        .credits-profile .social-link.email:hover {
+            background: #d33426;
+        }
+
+        .credits-profile .social-link.whatsapp {
+            background: #25d366;
+            color: white;
+        }
+
+        .credits-profile .social-link.whatsapp:hover {
+            background: #1da851;
+        }
+
+        .credits-profile .social-link.phone {
+            background: #34b7f1;
+            color: white;
+        }
+
+        .credits-profile .social-link.phone:hover {
+            background: #1a9dd9;
+        }
+
+        .credits-profile .social-link .icon {
+            font-size: 1.5rem;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 12px 30px;
+            background: var(--gold);
+            color: var(--primary);
+            border-radius: 30px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .back-btn:hover {
+            background: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .credits-profile .profile-image {
+                width: 160px;
+                height: 200px;
+                border-radius: 10px;
+            }
+
+            .credits-profile .profile-name {
+                font-size: 1.5rem;
+            }
+
+            .credits-profile .profile-bio {
+                padding: 0 10px;
+                font-size: 0.9rem;
+            }
+
+            .credits-profile .social-links-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .credits-profile .profile-image {
+                width: 130px;
+                height: 160px;
+                border-radius: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.png" alt="Denmak FC Logo" style="height: 50px;">
+                <div class="club-name">
+                    Denmak FC
+                    <span class="nickname">Maganyakulo</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="matches.html">Match Centre</a></li>
+                <li><a href="squad.html">Squad</a></li>
+                <li><a href="history.html">History</a></li>
+                <li class="dropdown">
+                    <a href="revenue.html">Revenue ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="store.html">Online Store</a></li>
+                        <li><a href="partnerships.html">Adverts & Partnerships</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <h1> Credits</h1>
+        <p>Website Developer & Designer</p>
+    </section>
+
+    <section style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+        <div class="credits-profile">
+            <div class="profile-image">
+                <img src="images/developer.jpg" alt="MOHAMMED SWABRI MSHINDO">
+            </div>
+            
+            <h2 class="profile-name">MOHAMMED SWABRI MSHINDO</h2>
+            <p class="profile-title"> Web Developer | Football Enthusiast | Denmak FC Family</p>
+            
+            <div class="profile-bio">
+                <p> <strong>Hello!</strong> I'm the developer behind the Denmak FC website. I'm passionate about creating beautiful, functional websites that tell stories and connect communities.</p>
+                <br>
+                <p> <strong>About Me:</strong> I'm a web developer and football enthusiast who believes in the power of sports to bring people together. This website is my contribution to the Denmak FC family - a club that has risen from grassroots to national recognition.</p>
+                <br>
+                <p> <strong>What I Do:</strong> Full-stack web development, UI/UX design, and digital solutions. I love combining technology with creativity to build meaningful digital experiences.</p>
+                <br>
+                <p> <strong>Location:</strong> Maganyakulo, Matuga Constituency, Kwale County, Kenya</p>
+            </div>
+
+            <h3 style="color: var(--primary); margin-bottom: 20px;"> Connect With Me</h3>
+            
+            <div class="social-links-grid">
+                <a href="https://www.facebook.com/Mohshanteh/" target="_blank" class="social-link facebook">
+                    <span class="icon"></span>
+                    Facebook
+                </a>
+                
+                <a href="mailto:mohammedswabri65@gmail.com" class="social-link email">
+                    <span class="icon"></span>
+                    Email
+                </a>
+                
+                <a href="https://wa.me/254703805049" target="_blank" class="social-link whatsapp">
+                    <span class="icon"></span>
+                    WhatsApp
+                </a>
+                
+                <a href="tel:+254703805049" class="social-link phone">
+                    <span class="icon"></span>
+                    Call: 0703 805 049
+                </a>
+            </div>
+
+            <a href="index.html" class="back-btn">← Back to Home</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <img src="images/logo.png" alt="Denmak FC Logo" style="height: 50px;">
+                    <h4 style="margin: 0;">Denmak FC</h4>
+                </div>
+                <p>Maganyakulo, Matuga Constituency<br>Kwale County, Kenya</p>
+                <p>info@denmakfc.co.ke</p>
+                <p>+254 XXX XXX XXX</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="matches.html">Match Centre</a></li>
+                    <li><a href="squad.html">Squad</a></li>
+                    <li><a href="store.html">Store</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="pages/terms.html">Terms of Service</a></li>
+                    <li><a href="pages/privacy.html">Privacy Policy</a></li>
+                    <li><a href="pages/sitemap.html">Site Map</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="#">Facebook</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Denmak FC Maganyakulo. All rights reserved.</p>
+            <p style="margin-top: 5px; font-size: 0.8rem; color: rgba(255, 255, 255, 0.4);">
+                Designed  by 
+                <a href="credits.html" style="color: var(--gold); text-decoration: none; font-weight: bold; transition: var(--transition);">
+                    MOHAMMED SWABRI MSHINDO
+                </a>
+            </p>
+        </div>
+    </footer>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
