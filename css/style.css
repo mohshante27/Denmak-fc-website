@@ -1788,3 +1788,486 @@ footer {
         padding: 15px;
     }
 }
+/* ---------- Legends Corner ---------- */
+.legends-corner {
+    background: var(--white);
+    border-radius: 16px;
+    padding: 40px 30px;
+    margin: 40px 0;
+    box-shadow: var(--shadow);
+    border-top: 5px solid var(--gold);
+}
+
+.legends-corner h2 {
+    color: var(--primary);
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.legends-corner h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--gold);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.legends-intro {
+    text-align: center;
+    color: #666;
+    font-size: 1.05rem;
+    margin-bottom: 30px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.legends-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.legend-card {
+    display: flex;
+    gap: 20px;
+    background: var(--light-gray);
+    padding: 20px;
+    border-radius: 12px;
+    transition: var(--transition);
+    align-items: flex-start;
+}
+
+.legend-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+    background: #e8e8e8;
+}
+
+.legend-image {
+    flex-shrink: 0;
+}
+
+.legend-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold);
+    border: 3px solid var(--gold);
+}
+
+.legend-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* If you want to keep the emoji fallback for legends without images */
+.legend-icon .no-image {
+    font-size: 2.5rem;
+    color: var(--primary);
+}
+
+.legend-info {
+    flex: 1;
+}
+
+.legend-info h3 {
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-bottom: 2px;
+}
+
+.legend-role {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--primary);
+    padding: 2px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.legend-desc {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+}
+
+.legend-years {
+    display: inline-block;
+    background: var(--primary);
+    color: var(--gold);
+    padding: 2px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+}
+
+.legends-tribute {
+    margin-top: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    border-radius: 12px;
+    text-align: center;
+    color: var(--white);
+}
+
+.legends-tribute h3 {
+    color: var(--gold);
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+}
+
+.legends-tribute p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* ---------- Responsive for Legends ---------- */
+@media (max-width: 768px) {
+    .legend-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .legend-icon {
+        width: 70px;
+        height: 70px;
+    }
+
+    .legend-photo {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .legends-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .legends-corner {
+        padding: 25px 15px;
+    }
+
+    .legend-card {
+        padding: 15px;
+    }
+
+    .legend-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
+/* For the circular image */
+.legend-icon {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--gold);
+    border: 3px solid var(--gold);
+}
+
+.legend-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    display: block;
+}
+
+/* For emoji fallback */
+.no-image {
+    font-size: 2.5rem;
+    color: var(--primary);
+    line-height: 1;
+}
+/* ---------- Squad ---------- */
+.squad-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.player-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.player-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.player-image {
+    position: relative;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.player-number {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--gold);
+    color: var(--primary);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.9rem;
+    z-index: 2;
+    border: 2px solid var(--white);
+}
+
+.player-photo-wrapper {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--gold);
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Fallback for players without images */
+.player-photo-wrapper .no-image {
+    font-size: 3.5rem;
+    color: var(--primary);
+}
+
+.player-card h3 {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.player-position {
+    color: var(--gold-dark);
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.player-stats {
+    font-size: 0.8rem;
+    color: #666;
+    margin: 5px 0;
+}
+
+.player-nationality {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.staff-card {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.staff-card h3 {
+    color: var(--primary);
+}
+
+.staff-card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .player-photo-wrapper {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .player-photo-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .player-number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+        top: -8px;
+        right: -8px;
+    }
+}
+/* ---------- Squad ---------- */
+.squad-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.player-card {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.player-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+.player-image {
+    position: relative;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.player-number {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--gold);
+    color: var(--primary);
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.9rem;
+    z-index: 2;
+    border: 2px solid var(--white);
+}
+
+/* RECTANGULAR photo wrapper - changed from circular */
+.player-photo-wrapper {
+    width: 150px;
+    height: 180px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 3px solid var(--gold);
+    background: var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-photo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Fallback for players without images */
+.player-photo-wrapper .no-image {
+    font-size: 3.5rem;
+    color: var(--primary);
+}
+
+.player-card h3 {
+    color: var(--primary);
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+.player-position {
+    color: var(--gold-dark);
+    font-weight: bold;
+    font-size: 0.85rem;
+}
+
+.player-stats {
+    font-size: 0.8rem;
+    color: #666;
+    margin: 5px 0;
+}
+
+.player-nationality {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.staff-card {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.staff-card h3 {
+    color: var(--primary);
+}
+
+.staff-card p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 768px) {
+    .player-photo-wrapper {
+        width: 120px;
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .player-photo-wrapper {
+        width: 100px;
+        height: 120px;
+    }
+    
+    .player-number {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+        top: -8px;
+        right: -8px;
+    }
+}
