@@ -1894,3 +1894,38 @@ footer {
     font-size: 1.2rem;
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
 }
+
+/* ---------- Mobile Dropdown Fix ---------- */
+@media (max-width: 768px) {
+    .dropdown-menu {
+        position: static;
+        border-radius: 0;
+        background: rgba(255, 255, 255, 0.1);
+        display: none;
+        width: 100%;
+        padding-left: 15px;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: none;
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block;
+    }
+
+    .dropdown.active > a {
+        background: var(--gold);
+        color: var(--primary);
+    }
+
+    .dropdown-menu li a {
+        padding: 8px 20px;
+        font-size: 0.85rem;
+    }
+
+    .dropdown-menu li a:hover {
+        background: var(--gold);
+        color: var(--primary);
+    }
+}
