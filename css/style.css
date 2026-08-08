@@ -14,6 +14,7 @@
     --dark-gray: #333333;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     --transition: all 0.3s ease;
+    --card-gap: 24px;
 }
 
 /* ---------- Reset & Base ---------- */
@@ -355,7 +356,7 @@ section h2::after {
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    gap: var(--card-gap);
 }
 
 .result-card {
@@ -419,7 +420,7 @@ section h2::after {
 .fixture-list-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    gap: var(--card-gap);
 }
 
 .fixture-card {
@@ -476,7 +477,7 @@ section h2::after {
 .news-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    gap: var(--card-gap);
 }
 
 .news-card {
@@ -529,7 +530,7 @@ section h2::after {
 .squad-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    gap: var(--card-gap);
     margin-bottom: 40px;
 }
 
@@ -642,7 +643,7 @@ section h2::after {
 .revenue-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    gap: var(--card-gap);
 }
 
 .revenue-card {
@@ -692,7 +693,7 @@ section h2::after {
 .store-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+    gap: var(--card-gap);
 }
 
 .product-card {
@@ -871,7 +872,7 @@ section h2::after {
 .partners-grid {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: var(--card-gap);
     flex-wrap: wrap;
 }
 
@@ -1027,14 +1028,14 @@ section h2::after {
 .club-management-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    gap: var(--card-gap);
     margin-top: 20px;
 }
 
 .values-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
+    gap: var(--card-gap);
     margin-top: 20px;
 }
 
@@ -1426,7 +1427,7 @@ footer {
 .legends-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    gap: var(--card-gap);
 }
 
 .legend-card {
@@ -1565,10 +1566,40 @@ footer {
    RESPONSIVE DESIGN - All Screens
    ================================================== */
 
+/* --- SHARED MOBILE NAV + DROPDOWN (applies to ALL phones/tablets up to 768px) --- */
+@media (max-width: 768px) {
+    .nav-container { flex-direction: column; gap: 10px; }
+    .nav-logo { width: 100%; justify-content: center; }
+    .nav-menu {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        width: 100%;
+        gap: 2px;
+    }
+    .nav-menu > li { width: 100%; }
+    .nav-menu > li > a { display: block; text-align: center; }
+
+    /* Dropdown becomes a static, tap-to-open panel instead of hover */
+    .dropdown-menu {
+        position: static;
+        display: none;
+        width: 100%;
+        border-radius: 0;
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+        padding: 0;
+    }
+    .dropdown:hover .dropdown-menu { display: none; }
+    .dropdown.active .dropdown-menu { display: block; }
+    .dropdown.active > a { background: var(--gold); color: var(--primary); }
+    .dropdown-menu li a { text-align: center; }
+}
+
 /* --- MOBILE (Small Phones up to 480px) --- */
 @media (max-width: 480px) {
+    :root { --card-gap: 15px; }
     .nav-menu {
-        flex-wrap: wrap;
         gap: 3px;
     }
     .nav-menu > li > a {
@@ -1606,15 +1637,7 @@ footer {
 
 /* --- TABLETS & LARGER MOBILE (481px to 768px) --- */
 @media (min-width: 481px) and (max-width: 768px) {
-    .nav-container { flex-direction: column; gap: 10px; }
-    .nav-logo { width: 100%; justify-content: center; }
-    .nav-menu { justify-content: center; width: 100%; }
     .nav-menu > li > a { padding: 6px 10px; font-size: 0.8rem; }
-
-    .dropdown-menu { position: static; border-radius: 0; background: rgba(255, 255, 255, 0.1); display: none; width: 100%; padding-left: 15px; }
-    .dropdown:hover .dropdown-menu { display: none; }
-    .dropdown.active .dropdown-menu { display: block; }
-    .dropdown.active > a { background: var(--gold); color: var(--primary); }
     .dropdown-menu li a { padding: 8px 20px; font-size: 0.85rem; }
 
     .logo-img { height: 40px; }
