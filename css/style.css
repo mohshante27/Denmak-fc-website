@@ -42,11 +42,14 @@ ul {
 /* ---------- Navigation (BLACK) ---------- */
 .navbar {
     background: #000000;
-    padding: 10px 20px;
+    padding: 10px 0; /* Changed to 0, so container handles padding */
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 .nav-container {
@@ -56,6 +59,7 @@ ul {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    padding: 0 20px; /* Horizontal padding moved here */
 }
 
 .nav-logo {
@@ -1132,7 +1136,7 @@ section h2::after {
 footer {
     background: #000000;
     color: var(--white);
-    padding: 40px 20px 20px;
+    padding: 40px 0 20px 0; /* Changed to 0, so container handles padding */
     width: 100%;
     max-width: 100%;
     margin: 0;
@@ -1144,6 +1148,7 @@ footer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 30px;
+    padding: 0 20px; /* Horizontal padding moved here */
 }
 
 .footer-section h4 {
@@ -1176,6 +1181,8 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.5);
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* ---------- League Table ---------- */
@@ -1336,7 +1343,7 @@ footer {
 
 /* ---------- Squad Hero Header ---------- */
 .squad-hero {
-    background: linear-gradient(rgba(10, 10, 46, 0.80), rgba(10, 10, 46, 0.80)), url('../images/denmak-fans-3.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(10, 10, 46, 0.80), rgba(10, 10, 46, 0.80)), url('../images/history-1.jpg') center/cover no-repeat;
     padding: 0;
     text-align: center;
     position: relative;
