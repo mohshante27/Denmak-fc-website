@@ -279,3 +279,11 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🏆 Denmak FC Maganyakulo - Website Loaded');
     console.log('📱 "Hii ni Denmak wewe, kataa uone"');
 });
+document.querySelectorAll('.dropdown > a').forEach(a => {
+  a.addEventListener('click', e => {
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+      a.parentElement.classList.toggle('active');
+    }
+  });
+});
