@@ -2,8 +2,9 @@
  * Denmak FC - Main JavaScript (Fixed)
  */
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
 
+<<<<<<< HEAD
     // ============================================
     // 1. HAMBURGER MENU TOGGLE
     // ============================================
@@ -65,6 +66,40 @@ document.addEventListener('DOMContentLoaded', function() {
             if (!e.target.closest('.dropdown')) {
                 dropdowns.forEach(d => d.classList.remove('active'));
             }
+=======
+    // ---------- Mobile Dropdown Toggle (Revenue ▾) ----------
+    const dropdowns = document.querySelectorAll('.dropdown');
+
+    dropdowns.forEach(dropdown => {
+        const trigger = dropdown.querySelector(':scope > a');
+
+        trigger.addEventListener('click', function (e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                // Close any other open dropdowns first
+                dropdowns.forEach(other => {
+                    if (other !== dropdown) other.classList.remove('active');
+                });
+
+                dropdown.classList.toggle('active');
+            }
+        });
+    });
+
+    // Close dropdown when tapping anywhere outside it
+    document.addEventListener('click', function (e) {
+        if (window.innerWidth <= 768 && !e.target.closest('.dropdown')) {
+            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+        }
+    });
+
+    // Close dropdown automatically if the window is resized past mobile width
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+            dropdowns.forEach(dropdown => dropdown.classList.remove('active'));
+>>>>>>> 7d0e8ba5e6a27ab5cf9177647941f7c94529e48e
         }
     });
 
@@ -233,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let cartTotal = 0;
 
     cartButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             const productCard = this.closest('.product-card');
             if (!productCard) return;
             
@@ -252,6 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 cartEmpty.innerHTML = '<p>🛒 You have ' + cartItems + ' item(s) in your cart</p>';
             }
 
+<<<<<<< HEAD
             // Visual feedback
             this.textContent = '✅ Added!';
             this.style.background = '#28a745';
@@ -261,6 +297,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.style.background = '';
                 this.style.color = '';
             }, 1500);
+=======
+            alert(productName + ' added to cart! (KSh ' + productPrice.toLocaleString() + ')');
+>>>>>>> 7d0e8ba5e6a27ab5cf9177647941f7c94529e48e
         });
     });
 
@@ -269,10 +308,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     const checkoutBtn = document.querySelector('.checkout');
     if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', function() {
+        checkoutBtn.addEventListener('click', function () {
             if (cartItems === 0) {
                 alert('🛒 Your cart is empty. Add some items first!');
             } else {
+<<<<<<< HEAD
                 alert('✅ Thank you for shopping with Denmak FC!\nTotal: KSh ' + cartTotal.toLocaleString());
                 cartItems = 0;
                 cartTotal = 0;
@@ -282,10 +322,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (cartEmpty) {
                     cartEmpty.innerHTML = '<p>🛒 Your cart is empty. Start shopping!</p>';
                 }
+=======
+                alert('Thank you for shopping with Denmak FC! Total: KSh ' + cartTotal.toLocaleString());
+                cartItems = 0;
+                cartTotal = 0;
+                if (cartTotalElement) cartTotalElement.textContent = 'KSh 0';
+                if (cartEmpty) cartEmpty.innerHTML = '<p>Your cart is empty. Start shopping!</p>';
+>>>>>>> 7d0e8ba5e6a27ab5cf9177647941f7c94529e48e
             }
         });
     }
 
+<<<<<<< HEAD
     // ============================================
     // 6. PRODUCT SIZE SELECTION
     // ============================================
@@ -318,20 +366,43 @@ document.addEventListener('DOMContentLoaded', function() {
     // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', function(e) {
+=======
+    // ---------- Smooth Scrolling ----------
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+        link.addEventListener('click', function (e) {
+>>>>>>> 7d0e8ba5e6a27ab5cf9177647941f7c94529e48e
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 e.preventDefault();
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
 
+<<<<<<< HEAD
+=======
+    // ---------- Product Size Selection ----------
+    document.querySelectorAll('.product-sizes span').forEach(size => {
+        size.addEventListener('click', function () {
+            const siblings = this.parentElement.querySelectorAll('span');
+            siblings.forEach(s => { s.style.background = ''; s.style.color = ''; });
+            this.style.background = '#f9d423';
+            this.style.color = '#0a0a2e';
+        });
+    });
+
+    // ---------- Partnership Inquire Buttons ----------
+    document.querySelectorAll('.package-card .btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const packageName = this.closest('.package-card').querySelector('h3').textContent;
+            alert('Thank you for your interest in our ' + packageName + ' package! A representative will contact you shortly.');
+        });
+    });
+
+>>>>>>> 7d0e8ba5e6a27ab5cf9177647941f7c94529e48e
     console.log('🏆 Denmak FC Maganyakulo - Website Loaded');
     console.log('📱 "Hii ni Denmak wewe, kataa uone"');
 });

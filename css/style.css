@@ -14,6 +14,7 @@
     --dark-gray: #333333;
     --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     --transition: all 0.3s ease;
+    --card-gap: 24px;
 }
 
 /* ---------- Reset & Base ---------- */
@@ -42,11 +43,14 @@ ul {
 /* ---------- Navigation (BLACK) ---------- */
 .navbar {
     background: #000000;
-    padding: 10px 20px;
+    padding: 10px 0; /* Changed to 0, so container handles padding */
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: var(--shadow);
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 .nav-container {
@@ -56,6 +60,7 @@ ul {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    padding: 0 20px; /* Horizontal padding moved here */
 }
 
 .nav-logo {
@@ -157,6 +162,9 @@ ul {
     position: relative;
     overflow: hidden;
     min-height: 500px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 .hero-overlay {
@@ -252,6 +260,13 @@ ul {
 /* ---------- Sections ---------- */
 section {
     padding: 60px 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+/* Keeps content centered inside sections */
+section > *:not(.page-header):not(.hero):not(.match-hero):not(.history-hero):not(.squad-hero) {
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -341,7 +356,7 @@ section h2::after {
 .results-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
+    gap: var(--card-gap);
 }
 
 .result-card {
@@ -405,7 +420,7 @@ section h2::after {
 .fixture-list-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    gap: var(--card-gap);
 }
 
 .fixture-card {
@@ -462,7 +477,7 @@ section h2::after {
 .news-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    gap: var(--card-gap);
 }
 
 .news-card {
@@ -515,7 +530,7 @@ section h2::after {
 .squad-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    gap: var(--card-gap);
     margin-bottom: 40px;
 }
 
@@ -628,7 +643,7 @@ section h2::after {
 .revenue-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    gap: var(--card-gap);
 }
 
 .revenue-card {
@@ -678,7 +693,7 @@ section h2::after {
 .store-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 25px;
+    gap: var(--card-gap);
 }
 
 .product-card {
@@ -857,7 +872,7 @@ section h2::after {
 .partners-grid {
     display: flex;
     justify-content: center;
-    gap: 40px;
+    gap: var(--card-gap);
     flex-wrap: wrap;
 }
 
@@ -1013,14 +1028,14 @@ section h2::after {
 .club-management-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
+    gap: var(--card-gap);
     margin-top: 20px;
 }
 
 .values-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px;
+    gap: var(--card-gap);
     margin-top: 20px;
 }
 
@@ -1053,6 +1068,9 @@ section h2::after {
     padding: 60px 20px;
     text-align: center;
     color: var(--white);
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 .page-header h1 {
@@ -1119,7 +1137,10 @@ section h2::after {
 footer {
     background: #000000;
     color: var(--white);
-    padding: 40px 20px 20px;
+    padding: 40px 0 20px 0; /* Changed to 0, so container handles padding */
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 .footer-content {
@@ -1128,6 +1149,7 @@ footer {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 30px;
+    padding: 0 20px; /* Horizontal padding moved here */
 }
 
 .footer-section h4 {
@@ -1160,6 +1182,8 @@ footer {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     font-size: 0.85rem;
     color: rgba(255, 255, 255, 0.5);
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 /* ---------- League Table ---------- */
@@ -1236,6 +1260,9 @@ footer {
     position: relative;
     overflow: hidden;
     min-height: 400px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 .match-hero-overlay {
@@ -1278,6 +1305,9 @@ footer {
     position: relative;
     overflow: hidden;
     min-height: 400px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 .history-hero-overlay {
@@ -1314,12 +1344,15 @@ footer {
 
 /* ---------- Squad Hero Header ---------- */
 .squad-hero {
-    background: linear-gradient(rgba(10, 10, 46, 0.80), rgba(10, 10, 46, 0.80)), url('../images/denmak-fans-3.jpg') center/cover no-repeat;
+    background: linear-gradient(rgba(10, 10, 46, 0.80), rgba(10, 10, 46, 0.80)), url('../images/history-1.jpg') center/cover no-repeat;
     padding: 0;
     text-align: center;
     position: relative;
     overflow: hidden;
     min-height: 400px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
 }
 
 .squad-hero-overlay {
@@ -1394,7 +1427,7 @@ footer {
 .legends-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    gap: var(--card-gap);
 }
 
 .legend-card {
@@ -1504,432 +1537,6 @@ footer {
     margin: 0 auto;
 }
 
-/* ---------- Responsive ---------- */
-@media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .nav-logo {
-        width: 100%;
-        justify-content: center;
-    }
-
-    .nav-menu {
-        justify-content: center;
-        width: 100%;
-    }
-
-    .nav-menu > li > a {
-        padding: 6px 10px;
-        font-size: 0.8rem;
-    }
-
-    .dropdown-menu {
-        position: static;
-        border-radius: 0;
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .dropdown:hover .dropdown-menu {
-        display: none;
-    }
-
-    .dropdown.active .dropdown-menu {
-        display: block;
-    }
-
-    .logo-img {
-        height: 40px;
-    }
-
-    .club-name {
-        font-size: 1.1rem;
-    }
-
-    .hero {
-        min-height: 400px;
-    }
-
-    .hero-overlay {
-        padding: 60px 20px;
-        min-height: 400px;
-    }
-
-    .hero-motto {
-        font-size: 1.8rem;
-    }
-
-    .hero-stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 15px;
-    }
-
-    .stat-number {
-        font-size: 1.8rem;
-    }
-
-    section {
-        padding: 40px 15px;
-    }
-
-    section h2 {
-        font-size: 1.5rem;
-    }
-
-    .page-header h1 {
-        font-size: 1.8rem;
-    }
-
-    .match-teams {
-        flex-direction: column;
-        gap: 10px;
-    }
-
-    .match-details {
-        justify-content: center;
-    }
-
-    .match-ticket {
-        flex-direction: column;
-        gap: 10px;
-        align-items: stretch;
-        text-align: center;
-    }
-
-    .timeline {
-        padding-left: 20px;
-    }
-
-    .timeline::before {
-        left: 5px;
-    }
-
-    .timeline-item::before {
-        left: -22px;
-        width: 12px;
-        height: 12px;
-    }
-
-    .revenue-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .store-grid {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    }
-
-    .packages-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .social-links {
-        align-items: center;
-    }
-
-    .standings {
-        font-size: 0.8rem;
-    }
-
-    .standings th,
-    .standings td {
-        padding: 8px 5px;
-    }
-
-    .match-hero {
-        min-height: 300px;
-    }
-    
-    .match-hero-overlay {
-        padding: 60px 20px;
-        min-height: 300px;
-    }
-    
-    .match-hero-content h1 {
-        font-size: 2.2rem;
-    }
-    
-    .match-hero-content p {
-        font-size: 1rem;
-    }
-
-    .history-hero {
-        min-height: 300px;
-    }
-    
-    .history-hero-overlay {
-        padding: 60px 20px;
-        min-height: 300px;
-    }
-    
-    .history-hero-content h1 {
-        font-size: 2.2rem;
-    }
-    
-    .history-hero-content p {
-        font-size: 1rem;
-    }
-
-    .squad-hero {
-        min-height: 300px;
-    }
-    
-    .squad-hero-overlay {
-        padding: 60px 20px;
-        min-height: 300px;
-    }
-    
-    .squad-hero-content h1 {
-        font-size: 2.2rem;
-    }
-    
-    .squad-hero-content p {
-        font-size: 1rem;
-    }
-
-    .legend-card {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-
-    .legend-icon {
-        width: 80px;
-        height: 100px;
-        border-radius: 8px;
-    }
-
-    .legend-photo {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .legends-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .player-photo-wrapper {
-        width: 120px;
-        height: 150px;
-    }
-}
-
-@media (max-width: 480px) {
-    .nav-menu {
-        flex-wrap: wrap;
-        gap: 3px;
-    }
-
-    .nav-menu > li > a {
-        font-size: 0.7rem;
-        padding: 4px 8px;
-    }
-
-    .club-name {
-        font-size: 0.9rem;
-    }
-
-    .club-name .nickname {
-        font-size: 0.6rem;
-    }
-
-    .logo-img {
-        height: 32px;
-    }
-
-    .hero {
-        min-height: 350px;
-    }
-
-    .hero-overlay {
-        padding: 40px 15px;
-        min-height: 350px;
-    }
-
-    .hero-motto {
-        font-size: 1.4rem;
-    }
-
-    .hero-sub {
-        font-size: 1rem;
-        margin-bottom: 25px;
-    }
-
-    .hero-stats {
-        grid-template-columns: 1fr 1fr;
-        gap: 10px;
-    }
-
-    .stat-item {
-        padding: 12px;
-    }
-
-    .stat-number {
-        font-size: 1.4rem;
-    }
-
-    .stat-label {
-        font-size: 0.75rem;
-    }
-
-    .news-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .squad-grid {
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    }
-
-    .match-hero {
-        min-height: 250px;
-    }
-    
-    .match-hero-overlay {
-        padding: 40px 15px;
-        min-height: 250px;
-    }
-    
-    .match-hero-content h1 {
-        font-size: 1.8rem;
-    }
-
-    .history-hero {
-        min-height: 250px;
-    }
-    
-    .history-hero-overlay {
-        padding: 40px 15px;
-        min-height: 250px;
-    }
-    
-    .history-hero-content h1 {
-        font-size: 1.8rem;
-    }
-
-    .squad-hero {
-        min-height: 250px;
-    }
-    
-    .squad-hero-overlay {
-        padding: 40px 15px;
-        min-height: 250px;
-    }
-    
-    .squad-hero-content h1 {
-        font-size: 1.8rem;
-    }
-
-    .legends-corner {
-        padding: 25px 15px;
-    }
-
-    .legend-card {
-        padding: 15px;
-    }
-
-    .legend-icon {
-        width: 70px;
-        height: 85px;
-        border-radius: 6px;
-    }
-
-    .player-photo-wrapper {
-        width: 100px;
-        height: 120px;
-    }
-    
-    .player-number {
-        width: 28px;
-        height: 28px;
-        font-size: 0.75rem;
-        top: -8px;
-        right: -8px;
-    }
-}
-/* ---------- Squad Hero Header ---------- */
-.squad-hero {
-    background: linear-gradient(rgba(10, 10, 46, 0.80), rgba(10, 10, 46, 0.80)), url('../images/history-1.jpg') center/cover no-repeat;
-    padding: 0;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    min-height: 400px;
-}
-
-.squad-hero-overlay {
-    padding: 80px 20px;
-    width: 100%;
-    min-height: 400px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.squad-hero-content {
-    position: relative;
-    z-index: 1;
-    max-width: 900px;
-    margin: 0 auto;
-    width: 100%;
-}
-
-.squad-hero-content h1 {
-    font-size: 3.5rem;
-    color: var(--white);
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-}
-
-.squad-hero-content p {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 1.2rem;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
-}
-
-/* ---------- Mobile Dropdown Fix ---------- */
-@media (max-width: 768px) {
-    .dropdown-menu {
-        position: static;
-        border-radius: 0;
-        background: rgba(255, 255, 255, 0.1);
-        display: none;
-        width: 100%;
-        padding-left: 15px;
-    }
-
-    .dropdown:hover .dropdown-menu {
-        display: none;
-    }
-
-    .dropdown.active .dropdown-menu {
-        display: block;
-    }
-
-    .dropdown.active > a {
-        background: var(--gold);
-        color: var(--primary);
-    }
-
-    .dropdown-menu li a {
-        padding: 8px 20px;
-        font-size: 0.85rem;
-    }
-
-    .dropdown-menu li a:hover {
-        background: var(--gold);
-        color: var(--primary);
-    }
-}
-
 /* ---------- Footer Credits ---------- */
 .footer-bottom .credits-link {
     color: var(--gold);
@@ -1954,6 +1561,7 @@ footer {
     0%, 100% { transform: scale(1); }
     50% { transform: scale(1.2); }
 }
+<<<<<<< HEAD
 /* ==================================================
    MOBILE NAVIGATION - HAMBURGER MENU
    ================================================== */
@@ -2197,5 +1805,143 @@ footer {
 @media (min-width: 769px) and (max-width: 1024px) {
     .partners-track .partner-logo {
         flex: 0 0 calc(50% - 15px);
+=======
+
+/* ==================================================
+   RESPONSIVE DESIGN - All Screens
+   ================================================== */
+
+/* --- SHARED MOBILE NAV + DROPDOWN (applies to ALL phones/tablets up to 768px) --- */
+@media (max-width: 768px) {
+    .nav-container { flex-direction: column; gap: 10px; }
+    .nav-logo { width: 100%; justify-content: center; }
+    .nav-menu {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        width: 100%;
+        gap: 2px;
+    }
+    .nav-menu > li { width: 100%; }
+    .nav-menu > li > a { display: block; text-align: center; }
+
+    /* Dropdown becomes a static, tap-to-open panel instead of hover */
+    .dropdown-menu {
+        position: static;
+        display: none;
+        width: 100%;
+        border-radius: 0;
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: none;
+        padding: 0;
+    }
+    .dropdown:hover .dropdown-menu { display: none; }
+    .dropdown.active .dropdown-menu { display: block; }
+    .dropdown.active > a { background: var(--gold); color: var(--primary); }
+    .dropdown-menu li a { text-align: center; }
+}
+
+/* --- MOBILE (Small Phones up to 480px) --- */
+@media (max-width: 480px) {
+    :root { --card-gap: 15px; }
+    .nav-menu {
+        gap: 3px;
+    }
+    .nav-menu > li > a {
+        font-size: 0.7rem;
+        padding: 4px 8px;
+    }
+    .club-name { font-size: 0.9rem; }
+    .club-name .nickname { font-size: 0.6rem; }
+    .logo-img { height: 32px; }
+
+    .hero, .match-hero, .history-hero, .squad-hero { min-height: 350px; }
+    .hero-overlay, .match-hero-overlay, .history-hero-overlay, .squad-hero-overlay { padding: 40px 15px; min-height: 350px; }
+    .hero-motto { font-size: 1.4rem; }
+    .hero-sub { font-size: 1rem; margin-bottom: 25px; }
+
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-item { padding: 12px; }
+    .stat-number { font-size: 1.4rem; }
+    .stat-label { font-size: 0.75rem; }
+    .news-grid, .squad-grid, .store-grid { grid-template-columns: 1fr; }
+    .squad-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
+
+    .page-header h1, .match-hero-content h1, .history-hero-content h1, .squad-hero-content h1 { font-size: 1.8rem; }
+    .match-hero, .history-hero, .squad-hero { min-height: 250px; }
+    .match-hero-overlay, .history-hero-overlay, .squad-hero-overlay { padding: 40px 15px; min-height: 250px; }
+    
+    section { padding: 30px 15px; }
+    section h2 { font-size: 1.5rem; }
+    .legends-corner { padding: 25px 15px; }
+    .legend-card { padding: 15px; flex-direction: column; align-items: center; text-align: center; }
+    .legend-icon { width: 70px; height: 85px; border-radius: 6px; }
+    .player-photo-wrapper { width: 100px; height: 120px; }
+    .player-number { width: 28px; height: 28px; font-size: 0.75rem; top: -8px; right: -8px; }
+}
+
+/* --- TABLETS & LARGER MOBILE (481px to 768px) --- */
+@media (min-width: 481px) and (max-width: 768px) {
+    .nav-menu > li > a { padding: 6px 10px; font-size: 0.8rem; }
+    .dropdown-menu li a { padding: 8px 20px; font-size: 0.85rem; }
+
+    .logo-img { height: 40px; }
+    .club-name { font-size: 1.1rem; }
+
+    .hero, .match-hero, .history-hero, .squad-hero { min-height: 400px; }
+    .hero-overlay { padding: 60px 20px; min-height: 400px; }
+    .hero-motto { font-size: 2.2rem; }
+    .hero-stats { grid-template-columns: 1fr 1fr; gap: 15px; }
+    .stat-number { font-size: 1.8rem; }
+
+    section { padding: 40px 15px; }
+    section h2 { font-size: 1.8rem; }
+    .page-header h1 { font-size: 2.2rem; }
+    .match-teams { flex-direction: column; gap: 10px; }
+    .match-details { justify-content: center; }
+    .match-ticket { flex-direction: column; gap: 10px; align-items: stretch; text-align: center; }
+
+    .timeline { padding-left: 20px; }
+    .timeline::before { left: 5px; }
+    .timeline-item::before { left: -22px; width: 12px; height: 12px; }
+
+    .revenue-grid, .packages-grid { grid-template-columns: 1fr; }
+    .store-grid { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+    
+    .footer-content { grid-template-columns: 1fr; text-align: center; }
+    .social-links { align-items: center; }
+    
+    .standings { font-size: 0.85rem; }
+    .standings th, .standings td { padding: 8px 5px; }
+
+    .legend-card { flex-direction: column; align-items: center; text-align: center; }
+    .legend-icon { width: 80px; height: 100px; border-radius: 8px; }
+    .legends-grid { grid-template-columns: 1fr; }
+    .player-photo-wrapper { width: 120px; height: 150px; }
+}
+
+/* --- STANDARD LAPTOPS & DESKTOPS (769px to 1919px) --- */
+@media (min-width: 769px) and (max-width: 1919px) {
+    section h2 { font-size: 2rem; }
+    .hero-motto { font-size: 3rem; }
+}
+
+/* --- LARGE DESKTOPS & 48-inch TVs (1920px and up) --- */
+@media (min-width: 1920px) {
+    .hero-motto { font-size: 5rem; }
+    .hero-sub { font-size: 1.8rem; }
+    .match-hero-content h1, .history-hero-content h1, .squad-hero-content h1 { font-size: 4.5rem; }
+    .page-header h1 { font-size: 3.5rem; }
+
+    .nav-container,
+    section > *:not(.page-header):not(.hero):not(.match-hero):not(.history-hero):not(.squad-hero),
+    .footer-content,
+    .history-content {
+        max-width: 1600px;
+    }
+    
+    .match-card, .player-card, .result-card, .news-card, .revenue-card, .product-card {
+        padding: 40px;
+>>>>>>> 7d0e8ba5e6a27ab5cf9177647941f7c94529e48e
     }
 }
