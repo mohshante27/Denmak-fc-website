@@ -41,16 +41,14 @@ ul {
 }
 
 /* ---------- Navigation (BLACK) ---------- */
+/* ---------- Navigation (BLACK) ---------- */
 .navbar {
     background: #000000;
-    padding: 10px 0; /* Changed to 0, so container handles padding */
+    padding: 10px 20px;
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: var(--shadow);
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
 }
 
 .nav-container {
@@ -60,13 +58,14 @@ ul {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    padding: 0 20px; /* Horizontal padding moved here */
+    position: relative;
 }
 
 .nav-logo {
     display: flex;
     align-items: center;
     gap: 15px;
+    flex: 1;
 }
 
 .logo-img {
@@ -90,6 +89,41 @@ ul {
     font-weight: normal;
     letter-spacing: 1px;
     text-transform: uppercase;
+}
+
+/* Hamburger button - positioned to the right */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px 5px;
+    z-index: 1001;
+    margin-left: auto;
+    /* Pushes button to the right */
+}
+
+.hamburger span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: #ffffff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -6px);
 }
 
 .nav-menu {
@@ -154,6 +188,140 @@ ul {
     display: block;
 }
 
+/* ==================================================
+   MOBILE RESPONSIVE - FIXED LAYOUT
+   ================================================== */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-wrap: wrap;
+    }
+
+    .nav-logo {
+        flex: 0 1 auto;
+        /* Don't grow, don't shrink too much */
+    }
+
+    /* Show hamburger on mobile */
+    .hamburger {
+        display: flex !important;
+        margin-left: auto;
+        /* Push to right */
+    }
+
+    /* Hide menu by default on mobile */
+    .nav-menu {
+        display: none !important;
+        flex-direction: column;
+        width: 100%;
+        padding: 10px 0;
+        gap: 0;
+        background: #000000;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: 10px;
+        order: 3;
+        /* Move below logo and hamburger */
+    }
+
+    .nav-menu.active {
+        display: flex !important;
+    }
+
+    .nav-menu > li {
+        width: 100%;
+        text-align: center;
+    }
+
+    .nav-menu > li > a {
+        padding: 12px 20px;
+        width: 100%;
+        border-radius: 0;
+        text-align: center;
+        font-size: 0.95rem;
+        display: block;
+    }
+
+    .nav-menu > li > a:hover,
+    .nav-menu > li > a.active {
+        background: var(--gold);
+        color: var(--primary);
+    }
+
+    /* Dropdown on mobile */
+    .dropdown-menu {
+        position: static !important;
+        background: rgba(255, 255, 255, 0.05) !important;
+        display: none !important;
+        width: 100%;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+    }
+
+    .dropdown.active .dropdown-menu {
+        display: block !important;
+    }
+
+    .dropdown-menu li a {
+        padding: 10px 30px !important;
+        text-align: center;
+        font-size: 0.9rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .dropdown-menu li a:hover {
+        background: var(--gold);
+        color: var(--primary);
+    }
+
+    .dropdown > a {
+        display: flex !important;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .dropdown > a::after {
+        content: '▾';
+        font-size: 0.7rem;
+        transition: all 0.3s ease;
+    }
+
+    .dropdown.active > a::after {
+        transform: rotate(180deg);
+    }
+
+    /* Fix club name size on mobile */
+    .club-name {
+        font-size: 1rem;
+    }
+
+    .club-name .nickname {
+        font-size: 0.6rem;
+    }
+
+    .logo-img {
+        height: 40px;
+    }
+}
+
+@media (max-width: 480px) {
+    .club-name {
+        font-size: 0.85rem;
+    }
+
+    .club-name .nickname {
+        font-size: 0.55rem;
+    }
+
+    .logo-img {
+        height: 35px;
+    }
+
+    .hamburger span {
+        width: 24px;
+        height: 2.5px;
+    }
+}
 /* ---------- Hero Section ---------- */
 .hero {
     background: linear-gradient(rgba(10, 10, 46, 0.75), rgba(10, 10, 46, 0.75)), url('../images/denmak-fans-2.jpg') center/cover no-repeat;
@@ -1697,258 +1865,5 @@ footer {
     
     .match-card, .player-card, .result-card, .news-card, .revenue-card, .product-card {
         padding: 40px;
-    }
-}
-/* ==================================================
-   MOBILE NAVIGATION - HAMBURGER MENU (FIXED)
-   ================================================== */
-
-/* Hamburger button */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 8px 5px;
-    z-index: 1001;
-    position: relative;
-}
-
-.hamburger span {
-    display: block;
-    width: 28px;
-    height: 3px;
-    background: #ffffff;
-    border-radius: 3px;
-    transition: all 0.3s ease;
-}
-
-.hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 6px);
-}
-
-.hamburger.active span:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -6px);
-}
-
-/* Mobile responsive */
-@media (max-width: 768px) {
-    .hamburger {
-        display: flex !important;
-    }
-
-    .nav-container {
-        flex-wrap: wrap;
-    }
-
-    .nav-menu {
-        display: none !important;
-        flex-direction: column;
-        width: 100%;
-        padding: 10px 0;
-        gap: 0;
-        background: #000000;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
-        margin-top: 10px;
-    }
-
-    .nav-menu.active {
-        display: flex !important;
-    }
-
-    .nav-menu > li {
-        width: 100%;
-        text-align: center;
-    }
-
-    .nav-menu > li > a {
-        padding: 12px 20px;
-        width: 100%;
-        border-radius: 0;
-        text-align: center;
-        font-size: 0.95rem;
-        display: block;
-    }
-
-    .nav-menu > li > a:hover,
-    .nav-menu > li > a.active {
-        background: var(--gold);
-        color: var(--primary);
-    }
-
-    /* Dropdown on mobile */
-    .dropdown-menu {
-        position: static !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-        display: none !important;
-        width: 100%;
-        border-radius: 0 !important;
-        box-shadow: none !important;
-        padding: 0 !important;
-    }
-
-    .dropdown.active .dropdown-menu {
-        display: block !important;
-    }
-
-    .dropdown-menu li a {
-        padding: 10px 30px !important;
-        text-align: center;
-        font-size: 0.9rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .dropdown-menu li a:hover {
-        background: var(--gold);
-        color: var(--primary);
-    }
-
-    .dropdown > a {
-        display: flex !important;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .dropdown > a::after {
-        content: '▾';
-        font-size: 0.7rem;
-        transition: all 0.3s ease;
-    }
-
-    .dropdown.active > a::after {
-        transform: rotate(180deg);
-    }
-}
-
-/* ==================================================
-   PARTNERS CAROUSEL / SLIDER (FIXED)
-   ================================================== */
-
-.partners-carousel-wrapper {
-    position: relative;
-    overflow: hidden;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 50px;
-}
-
-.partners-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-    gap: 30px;
-    will-change: transform;
-}
-
-.partners-track .partner-logo {
-    flex: 0 0 calc(33.333% - 20px);
-    min-width: 200px;
-    background: var(--white);
-    padding: 30px 20px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-}
-
-.partners-track .partner-logo:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-.partners-track .partner-logo img {
-    max-width: 100%;
-    height: auto;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-
-/* Carousel buttons */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--primary);
-    color: var(--gold);
-    border: 2px solid var(--gold);
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.5rem;
-    font-weight: bold;
-    z-index: 10;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.carousel-btn:hover {
-    background: var(--gold);
-    color: var(--primary);
-    transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-btn.prev {
-    left: 0;
-}
-
-.carousel-btn.next {
-    right: 0;
-}
-
-/* Carousel dots */
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.carousel-dots .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #ccc;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-    padding: 0;
-}
-
-.carousel-dots .dot.active {
-    background: var(--gold);
-    transform: scale(1.2);
-}
-
-/* Mobile partners carousel */
-@media (max-width: 768px) {
-    .partners-carousel-wrapper {
-        padding: 20px 30px;
-    }
-
-    .partners-track .partner-logo {
-        flex: 0 0 calc(100% - 20px);
-        min-width: unset;
-    }
-
-    .carousel-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 1rem;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .partners-track .partner-logo {
-        flex: 0 0 calc(50% - 15px);
-        min-width: unset;
     }
 }
