@@ -380,73 +380,248 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('🏆 Denmak FC - Ready!');
 });
-// Simplified carousel - add this to your script
-function simpleCarousel() {
-    const track = document.querySelector('.partners-track');
-    if (!track) return;
+/**
+ * IMPROVED PARTNERS CAROUSEL
+ * Shows all cards, faster auto-slide, smooth transitions
+ */
+function improvedCarousel() {
+    const wrapper = document.querySelector('.partners-carousel-wrapper');
+    if (!wrapper) {
+        console.log('❌ Carousel wrapper not found');
+        return;
+    }
+    
+    const track = wrapper.querySelector('.partners-track');
+    if (!track) {
+        console.log('❌ Track not found');
+        return;
+    }
     
     const slides = track.querySelectorAll('.partner-logo');
-    if (slides.length === 0) return;
-    
-    let current = 0;
-    const slideCount = slides.length;
-    
-    // Show first 3 slides on desktop, 1 on mobile
-    function getVisibleCount() {
-        return window.innerWidth <= 768 ? 1 : 3;
+    if (slides.length === 0) {
+        console.log('❌ No slides found');
+        return;
     }
+    
+    // Clone slides for seamless infinite scroll effect
+    const originalSlides = Array.from(slides);
+    originalSlides.forEach(slide => {
+        const clone = slide.cloneNode(true);
+        track.appendChild(clone);
+    });
+    
+    console.log(`✅ Found ${originalSlides.length} partner cards`);
+    
+    let currentIndex = 0;
+    const totalSlides = originalSlides.length;
+    const totalClones = track.children.length;
+    
+    // Get slides per view based on screen size
+    function getSlidesPerView() {
+        if (window.innerWidth <= 480) return 1;
+        if (window.innerWidth <= 768) return 2;
+        if (window.innerWidth <= 1024) return 3;
+        return 4;
+    }
+    
+    // Get slide width including gap
+    function getSlideWidth() {
+        const firstSlide = track.querySelector('.partner-logo');
+        if (!firstSlide) return 250;
+        return firstSlide.offsetWidth + 30; // width + gap
+    }
+    
+    let slidesPerView = getSlidesPerView();
+    let slideWidth = getSlideWidth();
+    let autoSlideInterval;
+    let isAnimating = false;
     
     function updateCarousel() {
-        const visible = getVisibleCount();
-        const maxIndex = Math.max(0, slideCount - visible);
-        if (current > maxIndex) current = maxIndex;
+        if (isAnimating) return;
+        isAnimating = true;
         
-        const percent = -(current / slideCount * 100);
-        track.style.transform = `translateX(${percent}%)`;
-        track.style.transition = 'transform 0.6s ease';
+        // Reset to beginning if we've gone past clones
+        if (currentIndex >= totalSlides) {
+            currentIndex = 0;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(0)`;
+            setTimeout(() => {
+                track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                isAnimating = false;
+            }, 50);
+            return;
+        }
+        
+        // Calculate translate amount
+        const translateX = -(currentIndex * slideWidth);
+        track.style.transform = `translateX(${translateX}px)`;
+        
+        setTimeout(() => {
+            isAnimating = false;
+        }, 500);
     }
     
-    // Next/Prev buttons
-    const nextBtn = document.querySelector('.carousel-btn.next');
-    const prevBtn = document.querySelector('.carousel-btn.prev');
-    
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            const visible = getVisibleCount();
-            if (current + visible < slideCount) {
-                current += visible;
-            } else {
-                current = 0;
-            }
-            updateCarousel();
-        });
+    function nextSlide() {
+        if (isAnimating) return;
+        
+        // Move to next slide
+        currentIndex++;
+        
+        // If we've reached the end, reset to beginning
+        if (currentIndex >= totalSlides) {
+            currentIndex = 0;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(0)`;
+            setTimeout(() => {
+                track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }, 50);
+            return;
+        }
+        
+        updateCarousel();
     }
     
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            const visible = getVisibleCount();
-            if (current - visible >= 0) {
-                current -= visible;
-            } else {
-                current = Math.max(0, slideCount - visible);
-            }
-            updateCarousel();
-        });
-    }
-    
-    // Auto play
-    setInterval(() => {
-        const visible = getVisibleCount();
-        if (current + visible < slideCount) {
-            current += visible;
-        } else {
-            current = 0;
+    function prevSlide() {
+        if (isAnimating) return;
+        
+        currentIndex--;
+        if (currentIndex < 0) {
+            currentIndex = totalSlides - 1;
         }
         updateCarousel();
-    }, 5000);
+    }
     
+    // Auto-slide function (faster speed)
+    function startAutoSlide() {
+        if (autoSlideInterval) clearInterval(autoSlideInterval);
+        // Faster: move every 3 seconds instead of 5
+        autoSlideInterval = setInterval(nextSlide, 3000);
+    }
+    
+    function stopAutoSlide() {
+        if (autoSlideInterval) {
+            clearInterval(autoSlideInterval);
+            autoSlideInterval = null;
+        }
+    }
+    
+    function resetAutoSlide() {
+        stopAutoSlide();
+        startAutoSlide();
+    }
+    
+    // ===== BUTTON EVENTS =====
+    const prevBtn = wrapper.querySelector('.carousel-btn.prev');
+    const nextBtn = wrapper.querySelector('.carousel-btn.next');
+    
+    if (prevBtn) {
+        const newPrev = prevBtn.cloneNode(true);
+        prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+        newPrev.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            prevSlide();
+            resetAutoSlide();
+        });
+    }
+    
+    if (nextBtn) {
+        const newNext = nextBtn.cloneNode(true);
+        nextBtn.parentNode.replaceChild(newNext, nextBtn);
+        newNext.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            nextSlide();
+            resetAutoSlide();
+        });
+    }
+    
+    // ===== PAUSE ON HOVER =====
+    track.addEventListener('mouseenter', stopAutoSlide);
+    track.addEventListener('mouseleave', startAutoSlide);
+    
+    // ===== TOUCH SUPPORT =====
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    track.addEventListener('touchstart', function(e) {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    track.addEventListener('touchend', function(e) {
+        touchEndX = e.changedTouches[0].screenX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 30) {
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+            resetAutoSlide();
+        }
+    }, { passive: true });
+    
+    // ===== WINDOW RESIZE =====
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            slidesPerView = getSlidesPerView();
+            slideWidth = getSlideWidth();
+            // Reset position
+            currentIndex = 0;
+            track.style.transition = 'none';
+            track.style.transform = `translateX(0)`;
+            setTimeout(() => {
+                track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+            }, 50);
+        }, 300);
+    });
+    
+    // ===== START =====
     updateCarousel();
+    startAutoSlide();
+    console.log('✅ Improved carousel started - faster speed (3s interval)');
 }
 
-// Call this instead of the other carousel
-setTimeout(simpleCarousel, 1000);
+// Initialize after images load
+function initCarouselWithImages() {
+    const track = document.querySelector('.partners-track');
+    if (!track) {
+        setTimeout(initCarouselWithImages, 500);
+        return;
+    }
+    
+    const images = track.querySelectorAll('img');
+    if (images.length === 0) {
+        // No images, start immediately
+        improvedCarousel();
+        return;
+    }
+    
+    let loaded = 0;
+    images.forEach(img => {
+        if (img.complete) {
+            loaded++;
+        } else {
+            img.addEventListener('load', () => {
+                loaded++;
+                if (loaded === images.length) {
+                    setTimeout(improvedCarousel, 100);
+                }
+            });
+            img.addEventListener('error', () => {
+                loaded++;
+                if (loaded === images.length) {
+                    setTimeout(improvedCarousel, 100);
+                }
+            });
+        }
+    });
+    
+    // Fallback: start after 1.5 seconds
+    setTimeout(improvedCarousel, 1500);
+}
+
+// Start the carousel
+setTimeout(initCarouselWithImages, 300);
