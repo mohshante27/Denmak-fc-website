@@ -1,5 +1,5 @@
 /**
- * Denmak FC - Main JavaScript (FIXED)
+ * Denmak FC - Main JavaScript (COMPLETE FIX)
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🏆 Denmak FC - Script Loaded');
 
     // ============================================
-    // 1. HAMBURGER MENU TOGGLE (FIXED)
+    // 1. HAMBURGER MENU TOGGLE
     // ============================================
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
@@ -22,7 +22,6 @@ document.addEventListener('DOMContentLoaded', function() {
             navMenu.classList.toggle('active');
         });
 
-        // Close menu when clicking a link (on mobile)
         navMenu.querySelectorAll('a').forEach(link => {
             link.addEventListener('click', function() {
                 if (window.innerWidth <= 768) {
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 2. MOBILE DROPDOWN TOGGLE (FIXED)
+    // 2. MOBILE DROPDOWN TOGGLE
     // ============================================
     const dropdowns = document.querySelectorAll('.dropdown');
 
@@ -46,13 +45,11 @@ document.addEventListener('DOMContentLoaded', function() {
         if (link) {
             link.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
-                    // Check if it's the Revenue parent link
                     const href = this.getAttribute('href');
                     if (href === 'revenue.html' || href === '#' || href === '') {
                         e.preventDefault();
                     }
                     
-                    // Close other dropdowns
                     dropdowns.forEach(other => {
                         if (other !== dropdown) {
                             other.classList.remove('active');
@@ -65,7 +62,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
         if (window.innerWidth <= 768) {
             if (!e.target.closest('.dropdown')) {
@@ -75,13 +71,20 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 3. PARTNERS CAROUSEL / SLIDER (FIXED)
+    // 3. PARTNERS CAROUSEL / SLIDER - COMPLETE FIX
     // ============================================
     function initPartnersCarousel() {
-        const track = document.querySelector('.partners-track');
-        const prevBtn = document.querySelector('.carousel-btn.prev');
-        const nextBtn = document.querySelector('.carousel-btn.next');
-        const dotsContainer = document.querySelector('.carousel-dots');
+        // Find all required elements
+        const wrapper = document.querySelector('.partners-carousel-wrapper');
+        if (!wrapper) {
+            console.log('❌ Partners wrapper not found');
+            return;
+        }
+        
+        const track = wrapper.querySelector('.partners-track');
+        const prevBtn = wrapper.querySelector('.carousel-btn.prev');
+        const nextBtn = wrapper.querySelector('.carousel-btn.next');
+        const dotsContainer = wrapper.querySelector('.carousel-dots');
         
         if (!track) {
             console.log('❌ Partners track not found');
@@ -100,6 +103,64 @@ document.addEventListener('DOMContentLoaded', function() {
         let slidesPerView = getSlidesPerView();
         let totalSlides = slides.length;
         let autoSlideInterval;
+        let isTransitioning = false;
+        
+        // Function to get slides per view based on screen size
+        function getSlidesPerView() {
+            if (window.innerWidth <= 768) return 1;
+            if (window.innerWidth <= 1024) return 2;
+            return 3;
+        }
+        
+        // Function to go to a specific slide
+        function goToSlide(index) {
+            if (isTransitioning) return;
+            isTransitioning = true;
+            
+            const maxIndex = Math.max(0, totalSlides - slidesPerView);
+            currentIndex = Math.min(index, maxIndex);
+            currentIndex = Math.max(0, currentIndex);
+            
+            const translateX = -(currentIndex * (100 / slidesPerView));
+            track.style.transform = 'translateX(' + translateX + '%)';
+            track.style.transition = 'transform 0.5s ease-in-out';
+            
+            // Update dots
+            if (dotsContainer) {
+                const dots = dotsContainer.querySelectorAll('.dot');
+                const activeDotIndex = Math.floor(currentIndex / slidesPerView);
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === activeDotIndex);
+                });
+            }
+            
+            setTimeout(function() {
+                isTransitioning = false;
+            }, 500);
+        }
+        
+        // Function for next slide
+        function nextSlide() {
+            if (isTransitioning) return;
+            const maxIndex = Math.max(0, totalSlides - slidesPerView);
+            if (currentIndex >= maxIndex) {
+                goToSlide(0);
+            } else {
+                goToSlide(currentIndex + slidesPerView);
+            }
+            console.log('➡️ Next slide: ' + currentIndex);
+        }
+        
+        // Function for previous slide
+        function prevSlide() {
+            if (isTransitioning) return;
+            if (currentIndex <= 0) {
+                goToSlide(Math.max(0, totalSlides - slidesPerView));
+            } else {
+                goToSlide(currentIndex - slidesPerView);
+            }
+            console.log('⬅️ Previous slide: ' + currentIndex);
+        }
         
         // Create dots
         if (dotsContainer) {
@@ -110,85 +171,22 @@ document.addEventListener('DOMContentLoaded', function() {
                 dot.classList.add('dot');
                 if (i === 0) dot.classList.add('active');
                 dot.dataset.index = i;
-                dot.addEventListener('click', function() {
-                    goToSlide(parseInt(this.dataset.index) * slidesPerView);
+                dot.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const index = parseInt(this.dataset.index) * slidesPerView;
+                    goToSlide(index);
                     resetAutoSlide();
+                    console.log('🔵 Dot clicked: ' + this.dataset.index);
                 });
                 dotsContainer.appendChild(dot);
             }
         }
         
-        function getSlidesPerView() {
-            if (window.innerWidth <= 768) return 1;
-            if (window.innerWidth <= 1024) return 2;
-            return 3;
-        }
-        
-        function updateSlidesPerView() {
-            const newSlidesPerView = getSlidesPerView();
-            if (newSlidesPerView !== slidesPerView) {
-                slidesPerView = newSlidesPerView;
-                updateDots();
-                goToSlide(0);
-            }
-        }
-        
-        function updateDots() {
-            const dots = dotsContainer ? dotsContainer.querySelectorAll('.dot') : [];
-            const totalDots = Math.ceil(totalSlides / slidesPerView);
-            
-            if (dots.length !== totalDots && dotsContainer) {
-                dotsContainer.innerHTML = '';
-                for (let i = 0; i < totalDots; i++) {
-                    const dot = document.createElement('button');
-                    dot.classList.add('dot');
-                    if (i === Math.floor(currentIndex / slidesPerView)) dot.classList.add('active');
-                    dot.dataset.index = i;
-                    dot.addEventListener('click', function() {
-                        goToSlide(parseInt(this.dataset.index) * slidesPerView);
-                        resetAutoSlide();
-                    });
-                    dotsContainer.appendChild(dot);
-                }
-            }
-        }
-        
-        function goToSlide(index) {
-            const maxIndex = Math.max(0, totalSlides - slidesPerView);
-            currentIndex = Math.min(index, maxIndex);
-            currentIndex = Math.max(0, currentIndex);
-            
-            const translateX = -(currentIndex * (100 / slidesPerView));
-            track.style.transform = 'translateX(' + translateX + '%)';
-            
-            // Update dots
-            const dots = dotsContainer ? dotsContainer.querySelectorAll('.dot') : [];
-            const activeDotIndex = Math.floor(currentIndex / slidesPerView);
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === activeDotIndex);
-            });
-        }
-        
-        function nextSlide() {
-            const maxIndex = Math.max(0, totalSlides - slidesPerView);
-            if (currentIndex >= maxIndex) {
-                goToSlide(0);
-            } else {
-                goToSlide(currentIndex + slidesPerView);
-            }
-        }
-        
-        function prevSlide() {
-            if (currentIndex <= 0) {
-                goToSlide(Math.max(0, totalSlides - slidesPerView));
-            } else {
-                goToSlide(currentIndex - slidesPerView);
-            }
-        }
-        
+        // Auto-slide functions
         function startAutoSlide() {
             if (autoSlideInterval) clearInterval(autoSlideInterval);
             autoSlideInterval = setInterval(nextSlide, 5000);
+            console.log('▶️ Auto-slide started');
         }
         
         function resetAutoSlide() {
@@ -198,51 +196,140 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Event listeners
+        // ===== FIXED: EVENT LISTENERS FOR BUTTONS =====
+        // Previous button
         if (prevBtn) {
-            prevBtn.addEventListener('click', function() {
+            console.log('✅ Previous button found');
+            // Remove any existing listeners by cloning
+            const newPrevBtn = prevBtn.cloneNode(true);
+            prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+            
+            newPrevBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('⬅️ Previous button clicked');
                 prevSlide();
                 resetAutoSlide();
             });
+        } else {
+            console.log('❌ Previous button NOT found - check your HTML');
         }
         
+        // Next button
         if (nextBtn) {
-            nextBtn.addEventListener('click', function() {
+            console.log('✅ Next button found');
+            // Remove any existing listeners by cloning
+            const newNextBtn = nextBtn.cloneNode(true);
+            nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+            
+            newNextBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                console.log('➡️ Next button clicked');
                 nextSlide();
                 resetAutoSlide();
             });
+        } else {
+            console.log('❌ Next button NOT found - check your HTML');
         }
         
         // Pause on hover
         track.addEventListener('mouseenter', function() {
-            if (autoSlideInterval) clearInterval(autoSlideInterval);
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+                console.log('⏸️ Auto-slide paused');
+            }
         });
         
         track.addEventListener('mouseleave', function() {
             startAutoSlide();
+            console.log('▶️ Auto-slide resumed');
         });
+        
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+        
+        track.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        }, { passive: true });
+        
+        track.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) {
+                    nextSlide();
+                } else {
+                    prevSlide();
+                }
+                resetAutoSlide();
+            }
+        }, { passive: true });
         
         // Window resize
         let resizeTimeout;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(function() {
-                updateSlidesPerView();
+                const newSlidesPerView = getSlidesPerView();
+                if (newSlidesPerView !== slidesPerView) {
+                    slidesPerView = newSlidesPerView;
+                    // Recreate dots
+                    if (dotsContainer) {
+                        dotsContainer.innerHTML = '';
+                        const totalDots = Math.ceil(totalSlides / slidesPerView);
+                        for (let i = 0; i < totalDots; i++) {
+                            const dot = document.createElement('button');
+                            dot.classList.add('dot');
+                            if (i === Math.floor(currentIndex / slidesPerView)) dot.classList.add('active');
+                            dot.dataset.index = i;
+                            dot.addEventListener('click', function(e) {
+                                e.stopPropagation();
+                                const index = parseInt(this.dataset.index) * slidesPerView;
+                                goToSlide(index);
+                                resetAutoSlide();
+                            });
+                            dotsContainer.appendChild(dot);
+                        }
+                    }
+                    goToSlide(0);
+                }
             }, 200);
         });
         
         // Initialize
         goToSlide(0);
         startAutoSlide();
+        console.log('✅ Carousel fully initialized');
     }
-    
-    // Init carousel after a small delay
-    setTimeout(function() {
-        initPartnersCarousel();
-    }, 100);
 
     // ============================================
-    // 4. ADD TO CART FUNCTIONALITY
+    // 4. INITIALIZE CAROUSEL WITH MULTIPLE ATTEMPTS
+    // ============================================
+    function tryInitCarousel(attempt) {
+        attempt = attempt || 0;
+        console.log('🔄 Attempting to initialize carousel (attempt ' + (attempt + 1) + ')');
+        
+        const wrapper = document.querySelector('.partners-carousel-wrapper');
+        if (wrapper) {
+            initPartnersCarousel();
+        } else if (attempt < 5) {
+            setTimeout(function() {
+                tryInitCarousel(attempt + 1);
+            }, 500);
+        } else {
+            console.log('❌ Failed to initialize carousel after 5 attempts');
+        }
+    }
+    
+    // Start carousel initialization
+    setTimeout(function() {
+        tryInitCarousel(0);
+    }, 300);
+
+    // ============================================
+    // 5. ADD TO CART FUNCTIONALITY
     // ============================================
     const cartButtons = document.querySelectorAll('.add-to-cart');
     const cartTotalElement = document.getElementById('cart-total');
@@ -250,8 +337,13 @@ document.addEventListener('DOMContentLoaded', function() {
     let cartItems = 0;
     let cartTotal = 0;
 
+    console.log('✅ Found ' + cartButtons.length + ' Add to Cart buttons');
+
     cartButtons.forEach(button => {
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             const productCard = this.closest('.product-card');
             if (!productCard) return;
             
@@ -271,23 +363,27 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             // Visual feedback
+            const originalText = this.textContent;
             this.textContent = '✅ Added!';
             this.style.background = '#28a745';
             this.style.color = 'white';
             setTimeout(() => {
-                this.textContent = 'Add to Cart';
+                this.textContent = originalText;
                 this.style.background = '';
                 this.style.color = '';
             }, 1500);
+
+            console.log('🛒 Added: ' + productName + ' (KSh ' + productPrice + ')');
         });
     });
 
     // ============================================
-    // 5. CHECKOUT
+    // 6. CHECKOUT
     // ============================================
     const checkoutBtn = document.querySelector('.checkout');
     if (checkoutBtn) {
-        checkoutBtn.addEventListener('click', function() {
+        checkoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
             if (cartItems === 0) {
                 alert('🛒 Your cart is empty. Add some items first!');
             } else {
@@ -305,10 +401,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 6. PRODUCT SIZE SELECTION
+    // 7. PRODUCT SIZE SELECTION
     // ============================================
     document.querySelectorAll('.product-sizes span').forEach(size => {
-        size.addEventListener('click', function() {
+        size.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
             const siblings = this.parentElement.querySelectorAll('span');
             siblings.forEach(s => {
                 s.style.background = '';
@@ -322,17 +421,19 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 7. PARTNERSHIP INQUIRE BUTTONS
+    // 8. PARTNERSHIP INQUIRE BUTTONS
     // ============================================
     document.querySelectorAll('.package-card .btn').forEach(btn => {
-        btn.addEventListener('click', function() {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
             const packageName = this.closest('.package-card')?.querySelector('h3')?.textContent || 'Partnership';
             alert('📩 Thank you for your interest in our ' + packageName + ' package!\nA representative will contact you shortly.');
         });
     });
 
     // ============================================
-    // 8. SMOOTH SCROLLING
+    // 9. SMOOTH SCROLLING
     // ============================================
     document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', function(e) {
