@@ -9,29 +9,37 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-logo">
+    <div class="nav-container">
+        <div class="nav-logo">
             <img src="images/logo.png" alt="Denmak FC Logo" style="height: 50px;">
             <div class="club-name">
                 Denmak FC
                 <span class="nickname">Maganyakulo</span>
             </div>
         </div>
-            <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="matches.html"> Match Centre</a></li>
-                <li><a href="squad.html"> Squad</a></li>
-                <li><a href="history.html"> History</a></li>
-                <li class="dropdown">
-                    <a href="revenue.html"></a> Revenue ▾</a>
-                    <ul class="dropdown-menu">
-                        <li><a href="store.html"> Online Store</a></li>
-                        <li><a href="partnerships.html" class="active"> Adverts & Partnerships</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        
+        <!-- Hamburger Button -->
+        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        
+        <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html"> Home</a></li>
+            <li><a href="matches.html"> Match Centre</a></li>
+            <li><a href="squad.html"> Squad</a></li>
+            <li><a href="history.html"> History</a></li>
+            <li class="dropdown">
+                <a href="revenue.html"> Revenue ▾</a>
+                <ul class="dropdown-menu">
+                    <li><a href="store.html"> Online Store</a></li>
+                    <li><a href="partnerships.html" class="active"> Adverts & Partnerships</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</nav>
 
     <section class="page-header">
         <h1> Adverts & Partnerships</h1>
@@ -108,36 +116,40 @@
     </section>
 
     <section class="current-partners">
-        <h2> Our Partners</h2>
-        <div class="partners-grid">
+    <h2> Our Partners</h2>
+    
+    <div class="partners-carousel-wrapper">
+        <button class="carousel-btn prev" aria-label="Previous partners">‹</button>
+        
+        <div class="partners-track">
             <div class="partner-logo">
-                <span class="partner-icon"></span>
                 <img src="images/Kombani-Homes Logo.jpg" alt="KOMBANI HOMES LIMITED Logo" style="height: 70px;">
                 <p>KOMBANI HOMES LIMITED</p>
                 <span class="partner-tag">MAIN SPONSOR</span>
             </div>
             <div class="partner-logo">
-                <span class="partner-icon"></span>
-               <img src="images/RASHID ABDALLAH FOUNDATION.jpg" alt="RASHID ABDALLAH FOUNDATION Logo" style="height: 80px;">
+                <img src="images/RASHID ABDALLAH FOUNDATION.jpg" alt="RASHID ABDALLAH FOUNDATION Logo" style="height: 80px;">
                 <p>RASHID ABDALLAH FOUNDATION</p>
-                <span class="partner-tag">SPONSOR</span> 
+                <span class="partner-tag">SPONSOR</span>
             </div>
             <div class="partner-logo">
-                <span class="partner-icon"></span>
                 <img src="images/sambasports-logo.png" alt="SAMBASPORTS YOUTH TRUST Logo" style="height: 70px;">
                 <p>SAMBASPORTS YOUTH TRUST</p>
                 <span class="partner-tag">PARTNER</span>
+            </div>
+            <!-- Add more partners here for sliding effect -->
+            <div class="partner-logo">
+                <img src="images/logo.png" alt="Denmak FC Logo" style="height: 60px;">
+                <p>DENMAK FC</p>
+                <span class="partner-tag">CLUB</span>
+            </div>
         </div>
-    </section>
-
-    <section class="contact-partnership">
-        <h2> Interested in Partnering?</h2>
-        <p>Contact our commercial team today to discuss partnership opportunities</p>
-        <div class="contact-details">
-            <p> partnerships@denmakfc.co.ke</p>
-            <p> +254 XXX XXX XXX</p>
-        </div>
-    </section>
+        
+        <button class="carousel-btn next" aria-label="Next partners">›</button>
+    </div>
+    
+    <div class="carousel-dots"></div>
+</section>
 
    <footer>
     <div class="footer-content">
