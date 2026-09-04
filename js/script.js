@@ -380,3 +380,73 @@ document.addEventListener('DOMContentLoaded', function() {
 
     console.log('🏆 Denmak FC - Ready!');
 });
+// Simplified carousel - add this to your script
+function simpleCarousel() {
+    const track = document.querySelector('.partners-track');
+    if (!track) return;
+    
+    const slides = track.querySelectorAll('.partner-logo');
+    if (slides.length === 0) return;
+    
+    let current = 0;
+    const slideCount = slides.length;
+    
+    // Show first 3 slides on desktop, 1 on mobile
+    function getVisibleCount() {
+        return window.innerWidth <= 768 ? 1 : 3;
+    }
+    
+    function updateCarousel() {
+        const visible = getVisibleCount();
+        const maxIndex = Math.max(0, slideCount - visible);
+        if (current > maxIndex) current = maxIndex;
+        
+        const percent = -(current / slideCount * 100);
+        track.style.transform = `translateX(${percent}%)`;
+        track.style.transition = 'transform 0.6s ease';
+    }
+    
+    // Next/Prev buttons
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            const visible = getVisibleCount();
+            if (current + visible < slideCount) {
+                current += visible;
+            } else {
+                current = 0;
+            }
+            updateCarousel();
+        });
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            const visible = getVisibleCount();
+            if (current - visible >= 0) {
+                current -= visible;
+            } else {
+                current = Math.max(0, slideCount - visible);
+            }
+            updateCarousel();
+        });
+    }
+    
+    // Auto play
+    setInterval(() => {
+        const visible = getVisibleCount();
+        if (current + visible < slideCount) {
+            current += visible;
+        } else {
+            current = 0;
+        }
+        updateCarousel();
+    }, 5000);
+    
+    updateCarousel();
+}
+
+// Call this instead of the other carousel
+setTimeout(simpleCarousel, 1000);
