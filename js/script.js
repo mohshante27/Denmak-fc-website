@@ -1,5 +1,5 @@
 /**
- * Denmak FC - Main JavaScript (COMPLETE FIX)
+ * Denmak FC - Main JavaScript (COMPLETE WORKING)
  */
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -13,11 +13,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const navMenu = document.getElementById('navMenu');
 
     if (hamburger && navMenu) {
-        console.log('✅ Hamburger found, attaching events');
+        console.log('✅ Hamburger found');
         
         hamburger.addEventListener('click', function(e) {
             e.stopPropagation();
-            console.log('Hamburger clicked');
             this.classList.toggle('active');
             navMenu.classList.toggle('active');
         });
@@ -30,8 +29,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
         });
-    } else {
-        console.log('❌ Hamburger or navMenu not found');
     }
 
     // ============================================
@@ -46,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function() {
             link.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
                     const href = this.getAttribute('href');
-                    if (href === 'revenue.html' || href === '#' || href === '') {
+                    if (href === 'revenue.html' || href === '#') {
                         e.preventDefault();
                     }
                     
@@ -71,13 +68,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 3. PARTNERS CAROUSEL / SLIDER - COMPLETE FIX
+    // 3. PARTNERS CAROUSEL - COMPLETE WORKING
     // ============================================
-    function initPartnersCarousel() {
-        // Find all required elements
+    
+    // Wait for everything to load
+    setTimeout(function() {
+        initCarousel();
+    }, 500);
+
+    function initCarousel() {
+        console.log('🔄 Initializing carousel...');
+        
+        // Find elements
         const wrapper = document.querySelector('.partners-carousel-wrapper');
         if (!wrapper) {
-            console.log('❌ Partners wrapper not found');
+            console.log('❌ Wrapper not found - check HTML');
             return;
         }
         
@@ -87,79 +92,74 @@ document.addEventListener('DOMContentLoaded', function() {
         const dotsContainer = wrapper.querySelector('.carousel-dots');
         
         if (!track) {
-            console.log('❌ Partners track not found');
+            console.log('❌ Track not found');
             return;
         }
         
         const slides = track.querySelectorAll('.partner-logo');
         if (slides.length === 0) {
-            console.log('❌ No partner slides found');
+            console.log('❌ No slides found');
             return;
         }
         
-        console.log('✅ Partners carousel found with ' + slides.length + ' slides');
+        console.log('✅ Found ' + slides.length + ' slides');
+        console.log('✅ Prev button:', prevBtn ? 'found' : 'NOT found');
+        console.log('✅ Next button:', nextBtn ? 'found' : 'NOT found');
         
         let currentIndex = 0;
         let slidesPerView = getSlidesPerView();
         let totalSlides = slides.length;
         let autoSlideInterval;
-        let isTransitioning = false;
+        let isAnimating = false;
         
-        // Function to get slides per view based on screen size
         function getSlidesPerView() {
             if (window.innerWidth <= 768) return 1;
             if (window.innerWidth <= 1024) return 2;
             return 3;
         }
         
-        // Function to go to a specific slide
         function goToSlide(index) {
-            if (isTransitioning) return;
-            isTransitioning = true;
+            if (isAnimating) return;
+            isAnimating = true;
             
             const maxIndex = Math.max(0, totalSlides - slidesPerView);
             currentIndex = Math.min(index, maxIndex);
             currentIndex = Math.max(0, currentIndex);
             
-            const translateX = -(currentIndex * (100 / slidesPerView));
-            track.style.transform = 'translateX(' + translateX + '%)';
-            track.style.transition = 'transform 0.5s ease-in-out';
+            const percentage = -(currentIndex * (100 / slidesPerView));
+            track.style.transform = 'translateX(' + percentage + '%)';
             
             // Update dots
             if (dotsContainer) {
                 const dots = dotsContainer.querySelectorAll('.dot');
-                const activeDotIndex = Math.floor(currentIndex / slidesPerView);
+                const activeIndex = Math.floor(currentIndex / slidesPerView);
                 dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === activeDotIndex);
+                    dot.classList.toggle('active', i === activeIndex);
                 });
             }
             
             setTimeout(function() {
-                isTransitioning = false;
-            }, 500);
+                isAnimating = false;
+            }, 600);
         }
         
-        // Function for next slide
         function nextSlide() {
-            if (isTransitioning) return;
+            if (isAnimating) return;
             const maxIndex = Math.max(0, totalSlides - slidesPerView);
             if (currentIndex >= maxIndex) {
                 goToSlide(0);
             } else {
                 goToSlide(currentIndex + slidesPerView);
             }
-            console.log('➡️ Next slide: ' + currentIndex);
         }
         
-        // Function for previous slide
         function prevSlide() {
-            if (isTransitioning) return;
+            if (isAnimating) return;
             if (currentIndex <= 0) {
                 goToSlide(Math.max(0, totalSlides - slidesPerView));
             } else {
                 goToSlide(currentIndex - slidesPerView);
             }
-            console.log('⬅️ Previous slide: ' + currentIndex);
         }
         
         // Create dots
@@ -168,25 +168,20 @@ document.addEventListener('DOMContentLoaded', function() {
             const totalDots = Math.ceil(totalSlides / slidesPerView);
             for (let i = 0; i < totalDots; i++) {
                 const dot = document.createElement('button');
-                dot.classList.add('dot');
-                if (i === 0) dot.classList.add('active');
+                dot.className = 'dot' + (i === 0 ? ' active' : '');
                 dot.dataset.index = i;
-                dot.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const index = parseInt(this.dataset.index) * slidesPerView;
-                    goToSlide(index);
+                dot.addEventListener('click', function() {
+                    goToSlide(parseInt(this.dataset.index) * slidesPerView);
                     resetAutoSlide();
-                    console.log('🔵 Dot clicked: ' + this.dataset.index);
                 });
                 dotsContainer.appendChild(dot);
             }
         }
         
-        // Auto-slide functions
+        // Auto slide
         function startAutoSlide() {
             if (autoSlideInterval) clearInterval(autoSlideInterval);
             autoSlideInterval = setInterval(nextSlide, 5000);
-            console.log('▶️ Auto-slide started');
         }
         
         function resetAutoSlide() {
@@ -196,67 +191,54 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // ===== FIXED: EVENT LISTENERS FOR BUTTONS =====
-        // Previous button
+        // ===== BUTTON EVENT LISTENERS =====
         if (prevBtn) {
-            console.log('✅ Previous button found');
-            // Remove any existing listeners by cloning
-            const newPrevBtn = prevBtn.cloneNode(true);
-            prevBtn.parentNode.replaceChild(newPrevBtn, prevBtn);
+            // Remove old listeners by cloning
+            const newPrev = prevBtn.cloneNode(true);
+            prevBtn.parentNode.replaceChild(newPrev, prevBtn);
             
-            newPrevBtn.addEventListener('click', function(e) {
+            newPrev.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('⬅️ Previous button clicked');
+                console.log('⬅️ Previous clicked');
                 prevSlide();
                 resetAutoSlide();
             });
-        } else {
-            console.log('❌ Previous button NOT found - check your HTML');
         }
         
-        // Next button
         if (nextBtn) {
-            console.log('✅ Next button found');
-            // Remove any existing listeners by cloning
-            const newNextBtn = nextBtn.cloneNode(true);
-            nextBtn.parentNode.replaceChild(newNextBtn, nextBtn);
+            // Remove old listeners by cloning
+            const newNext = nextBtn.cloneNode(true);
+            nextBtn.parentNode.replaceChild(newNext, nextBtn);
             
-            newNextBtn.addEventListener('click', function(e) {
+            newNext.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('➡️ Next button clicked');
+                console.log('➡️ Next clicked');
                 nextSlide();
                 resetAutoSlide();
             });
-        } else {
-            console.log('❌ Next button NOT found - check your HTML');
         }
         
         // Pause on hover
         track.addEventListener('mouseenter', function() {
             if (autoSlideInterval) {
                 clearInterval(autoSlideInterval);
-                console.log('⏸️ Auto-slide paused');
             }
         });
         
         track.addEventListener('mouseleave', function() {
             startAutoSlide();
-            console.log('▶️ Auto-slide resumed');
         });
         
-        // Touch support for mobile
+        // Touch support
         let touchStartX = 0;
-        let touchEndX = 0;
-        
         track.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
         
         track.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            const diff = touchStartX - touchEndX;
+            const diff = touchStartX - e.changedTouches[0].screenX;
             if (Math.abs(diff) > 50) {
                 if (diff > 0) {
                     nextSlide();
@@ -268,26 +250,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: true });
         
         // Window resize
-        let resizeTimeout;
+        let resizeTimer;
         window.addEventListener('resize', function() {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(function() {
-                const newSlidesPerView = getSlidesPerView();
-                if (newSlidesPerView !== slidesPerView) {
-                    slidesPerView = newSlidesPerView;
-                    // Recreate dots
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(function() {
+                const newPerView = getSlidesPerView();
+                if (newPerView !== slidesPerView) {
+                    slidesPerView = newPerView;
+                    // Rebuild dots
                     if (dotsContainer) {
                         dotsContainer.innerHTML = '';
                         const totalDots = Math.ceil(totalSlides / slidesPerView);
                         for (let i = 0; i < totalDots; i++) {
                             const dot = document.createElement('button');
-                            dot.classList.add('dot');
-                            if (i === Math.floor(currentIndex / slidesPerView)) dot.classList.add('active');
+                            dot.className = 'dot' + (i === 0 ? ' active' : '');
                             dot.dataset.index = i;
-                            dot.addEventListener('click', function(e) {
-                                e.stopPropagation();
-                                const index = parseInt(this.dataset.index) * slidesPerView;
-                                goToSlide(index);
+                            dot.addEventListener('click', function() {
+                                goToSlide(parseInt(this.dataset.index) * slidesPerView);
                                 resetAutoSlide();
                             });
                             dotsContainer.appendChild(dot);
@@ -295,41 +274,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     goToSlide(0);
                 }
-            }, 200);
+            }, 300);
         });
         
-        // Initialize
+        // Start
         goToSlide(0);
         startAutoSlide();
-        console.log('✅ Carousel fully initialized');
+        console.log('✅ Carousel ready!');
     }
 
     // ============================================
-    // 4. INITIALIZE CAROUSEL WITH MULTIPLE ATTEMPTS
-    // ============================================
-    function tryInitCarousel(attempt) {
-        attempt = attempt || 0;
-        console.log('🔄 Attempting to initialize carousel (attempt ' + (attempt + 1) + ')');
-        
-        const wrapper = document.querySelector('.partners-carousel-wrapper');
-        if (wrapper) {
-            initPartnersCarousel();
-        } else if (attempt < 5) {
-            setTimeout(function() {
-                tryInitCarousel(attempt + 1);
-            }, 500);
-        } else {
-            console.log('❌ Failed to initialize carousel after 5 attempts');
-        }
-    }
-    
-    // Start carousel initialization
-    setTimeout(function() {
-        tryInitCarousel(0);
-    }, 300);
-
-    // ============================================
-    // 5. ADD TO CART FUNCTIONALITY
+    // 4. ADD TO CART
     // ============================================
     const cartButtons = document.querySelectorAll('.add-to-cart');
     const cartTotalElement = document.getElementById('cart-total');
@@ -337,12 +292,9 @@ document.addEventListener('DOMContentLoaded', function() {
     let cartItems = 0;
     let cartTotal = 0;
 
-    console.log('✅ Found ' + cartButtons.length + ' Add to Cart buttons');
-
     cartButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
             
             const productCard = this.closest('.product-card');
             if (!productCard) return;
@@ -362,7 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 cartEmpty.innerHTML = '<p>🛒 You have ' + cartItems + ' item(s) in your cart</p>';
             }
 
-            // Visual feedback
             const originalText = this.textContent;
             this.textContent = '✅ Added!';
             this.style.background = '#28a745';
@@ -372,22 +323,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.style.background = '';
                 this.style.color = '';
             }, 1500);
-
-            console.log('🛒 Added: ' + productName + ' (KSh ' + productPrice + ')');
         });
     });
 
     // ============================================
-    // 6. CHECKOUT
+    // 5. CHECKOUT
     // ============================================
     const checkoutBtn = document.querySelector('.checkout');
     if (checkoutBtn) {
         checkoutBtn.addEventListener('click', function(e) {
             e.preventDefault();
             if (cartItems === 0) {
-                alert('🛒 Your cart is empty. Add some items first!');
+                alert('🛒 Your cart is empty!');
             } else {
-                alert('✅ Thank you for shopping with Denmak FC!\nTotal: KSh ' + cartTotal.toLocaleString());
+                alert('✅ Thank you! Total: KSh ' + cartTotal.toLocaleString());
                 cartItems = 0;
                 cartTotal = 0;
                 if (cartTotalElement) {
@@ -401,13 +350,11 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ============================================
-    // 7. PRODUCT SIZE SELECTION
+    // 6. PRODUCT SIZE SELECTION
     // ============================================
     document.querySelectorAll('.product-sizes span').forEach(size => {
         size.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
-            
             const siblings = this.parentElement.querySelectorAll('span');
             siblings.forEach(s => {
                 s.style.background = '';
@@ -421,36 +368,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 8. PARTNERSHIP INQUIRE BUTTONS
+    // 7. PARTNERSHIP INQUIRE BUTTONS
     // ============================================
     document.querySelectorAll('.package-card .btn').forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
             const packageName = this.closest('.package-card')?.querySelector('h3')?.textContent || 'Partnership';
-            alert('📩 Thank you for your interest in our ' + packageName + ' package!\nA representative will contact you shortly.');
+            alert('📩 Thank you for your interest in our ' + packageName + ' package!');
         });
     });
 
-    // ============================================
-    // 9. SMOOTH SCROLLING
-    // ============================================
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-        link.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                e.preventDefault();
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    console.log('🏆 Denmak FC Maganyakulo - Website Ready');
-    console.log('📱 "Hii ni Denmak wewe, kataa uone"');
+    console.log('🏆 Denmak FC - Ready!');
 });
