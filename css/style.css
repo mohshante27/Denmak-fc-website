@@ -2135,3 +2135,6 @@ footer {
         min-width: unset;
     }
 }
+.credits-profile .social-link .icon {
+    font-size: 1.3rem;
+}

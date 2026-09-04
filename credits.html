@@ -6,6 +6,8 @@
     <title>MOHAMMED SWABRI MSHINDO - Credits</title>
     <link rel="icon" type="image/png" href="images/logo.png">
     <link rel="stylesheet" href="css/style.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         /* Additional styles for the credits page */
         .credits-profile {
@@ -83,25 +85,28 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 12px 20px;
+            gap: 12px;
+            padding: 14px 20px;
             border-radius: 30px;
-            background: var(--light-gray);
-            color: var(--primary);
-            font-weight: bold;
+            color: white;
+            font-weight: 600;
             text-decoration: none;
             transition: var(--transition);
             border: 2px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .credits-profile .social-link i {
+            font-size: 1.3rem;
         }
 
         .credits-profile .social-link:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
         }
 
         .credits-profile .social-link.facebook {
             background: #1877f2;
-            color: white;
         }
 
         .credits-profile .social-link.facebook:hover {
@@ -110,7 +115,6 @@
 
         .credits-profile .social-link.email {
             background: #ea4335;
-            color: white;
         }
 
         .credits-profile .social-link.email:hover {
@@ -119,7 +123,6 @@
 
         .credits-profile .social-link.whatsapp {
             background: #25d366;
-            color: white;
         }
 
         .credits-profile .social-link.whatsapp:hover {
@@ -128,15 +131,10 @@
 
         .credits-profile .social-link.phone {
             background: #34b7f1;
-            color: white;
         }
 
         .credits-profile .social-link.phone:hover {
             background: #1a9dd9;
-        }
-
-        .credits-profile .social-link .icon {
-            font-size: 1.5rem;
         }
 
         .back-btn {
@@ -154,6 +152,13 @@
         .back-btn:hover {
             background: var(--gold-dark);
             transform: translateY(-2px);
+        }
+
+        /* Section heading style */
+        .credits-profile .connect-heading {
+            color: var(--primary);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
         }
 
         @media (max-width: 768px) {
@@ -190,47 +195,47 @@
 <body>
 
     <nav class="navbar">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <img src="images/logo.png" alt="Denmak FC Logo" style="height: 50px;">
-            <div class="club-name">
-                DENMAK FC
-                <span class="nickname">Maganyakulo</span>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.png" alt="Denmak FC Logo" style="height: 50px;">
+                <div class="club-name">
+                    DENMAK FC
+                    <span class="nickname">Maganyakulo</span>
+                </div>
             </div>
+            
+            <!-- Hamburger Button -->
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html"> Home</a></li>
+                <li><a href="matches.html"> Match Centre</a></li>
+                <li><a href="squad.html"> Squad</a></li>
+                <li><a href="history.html"> History</a></li>
+                <li class="dropdown">
+                    <a href="revenue.html"> Revenue ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="store.html"> Online Store</a></li>
+                        <li><a href="partnerships.html"> Adverts & Partnerships</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        
-        <!-- Hamburger Button -->
-        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="index.html"> Home</a></li>
-            <li><a href="matches.html"> Match Centre</a></li>
-            <li><a href="squad.html"> Squad</a></li>
-            <li><a href="history.html"> History</a></li>
-            <li class="dropdown">
-                <a href="revenue.html"> Revenue ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="store.html"> Online Store</a></li>
-                    <li><a href="partnerships.html"> Adverts & Partnerships</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</nav>
+    </nav>
 
     <section class="page-header">
         <h1> Credits</h1>
         <p>Website Developer & Designer</p>
     </section>
 
-    <section style="padding: 40px 20px; max-width: 1200px; margin: 0 auto;">
+    <section> 
         <div class="credits-profile">
             <div class="profile-image">
-                <img src="images/developer.jpg" alt="MOHAMMED SWABRI MSHINDO">
+                <img src="images/developer.jpg" alt="MOHAMMED SWABRI MSHINDO"> 
             </div>
             
             <h2 class="profile-name">MOHAMMED SWABRI MSHINDO</h2>
@@ -246,26 +251,26 @@
                 <p> <strong>Location:</strong> Maganyakulo, Matuga Constituency, Kwale County, Kenya</p>
             </div>
 
-            <h3 style="color: var(--primary); margin-bottom: 20px;"> Connect With Me</h3>
+            <h3 class="connect-heading"> Connect With Me</h3>
             
             <div class="social-links-grid">
-                <a> href="https://www.facebook.com/Mohshanteh/" target="_blank" class="social-link facebook">
-                    <span class="icon"></span>
+                <a href="https://www.facebook.com/Mohshanteh/" target="_blank" class="social-link facebook">
+                    <i class="fab fa-facebook-f"></i>
                     Facebook
                 </a> 
                 
                 <a href="mailto:mohammedswabri65@gmail.com" class="social-link email">
-                    <span class="icon"></span>
+                    <i class="fas fa-envelope"></i>
                     Email
                 </a>
                 
-                <a> href="https://wa.me/254703805049" target="_blank" class="social-link whatsapp">
-                    <span class="icon"></span>
+                <a href="https://wa.me/254703805049" target="_blank" class="social-link whatsapp">
+                    <i class="fab fa-whatsapp"></i>
                     WhatsApp
                 </a>
                 
                 <a href="tel:+254703805049" class="social-link phone">
-                    <span class="icon"></span>
+                    <i class="fas fa-phone"></i>
                     Call: 0703 805 049
                 </a>
             </div>
@@ -313,7 +318,7 @@
         <div class="footer-bottom">
             <p>&copy; 2026 Denmak FC Maganyakulo. All rights reserved.</p>
             <p style="margin-top: 5px; font-size: 0.8rem; color: rgba(255, 255, 255, 0.4);">
-                Designed  by 
+                Designed by 
                 <a href="credits.html" style="color: var(--gold); text-decoration: none; font-weight: bold; transition: var(--transition);">
                     MOHAMMED SWABRI MSHINDO
                 </a>
