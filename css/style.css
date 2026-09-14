@@ -1,5 +1,5 @@
 /* ==================================================
-   DENMAK FC - Main Stylesheet (FIXED NAVIGATION)
+   DENMAK FC - Main Stylesheet (FIXED)
    ================================================== */
 
 /* ---------- CSS Variables ---------- */
@@ -443,7 +443,10 @@ ul {
     font-size: 0.9rem;
 }
 
-/* ---------- Sections ---------- */
+/* ==================================================
+   SECTIONS
+   ================================================== */
+
 section {
     padding: 60px 20px;
     width: 100%;
@@ -451,15 +454,24 @@ section {
     margin: 0 auto;
 }
 
-section > *:not(.page-header):not(.hero):not(.match-hero):not(.history-hero):not(.squad-hero) {
+/* Only center the content wrappers, NOT the headings */
+.recent-results > .results-grid,
+.news-section > .news-grid,
+.next-match > .match-card,
+.current-partners > .partners-carousel-wrapper,
+.current-partners > .carousel-dots {
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* ==================================================
+   SECTION HEADINGS - MORE SPACE BELOW YELLOW LINE
+   ================================================== */
+
 section h2 {
     font-size: 2rem;
     color: var(--primary);
-    margin-bottom: 30px;
+    margin-bottom: 50px;
     text-align: center;
     position: relative;
 }
@@ -1868,7 +1880,7 @@ footer {
     }
     
     section { padding: 30px 15px; }
-    section h2 { font-size: 1.5rem; }
+    section h2 { font-size: 1.5rem; margin-bottom: 40px; }
     
     .legends-corner { padding: 25px 15px; }
     .legend-card { 
@@ -1896,7 +1908,7 @@ footer {
     .stat-number { font-size: 1.8rem; }
     
     section { padding: 40px 15px; }
-    section h2 { font-size: 1.8rem; }
+    section h2 { font-size: 1.8rem; margin-bottom: 40px; }
     .page-header h1 { font-size: 2.2rem; }
     .match-teams { flex-direction: column; gap: 10px; }
     .match-details { justify-content: center; }
@@ -1922,7 +1934,7 @@ footer {
 }
 
 @media (min-width: 769px) and (max-width: 1919px) {
-    section h2 { font-size: 2rem; }
+    section h2 { font-size: 2rem; margin-bottom: 50px; }
     .hero-motto { font-size: 3rem; }
 }
 
@@ -1931,8 +1943,8 @@ footer {
     .hero-sub { font-size: 1.8rem; }
     .match-hero-content h1, .history-hero-content h1, .squad-hero-content h1 { font-size: 4.5rem; }
     .page-header h1 { font-size: 3.5rem; }
+    section h2 { margin-bottom: 60px; }
 
-    section > *:not(.page-header):not(.hero):not(.match-hero):not(.history-hero):not(.squad-hero),
     .footer-content,
     .history-content {
         max-width: 1600px;
