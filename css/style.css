@@ -1,5 +1,5 @@
 /* ==================================================
-   DENMAK FC - Main Stylesheet (FIXED)
+   DENMAK FC - Main Stylesheet (FIXED NAVIGATION)
    ================================================== */
 
 /* ---------- CSS Variables ---------- */
@@ -41,33 +41,38 @@ ul {
 }
 
 /* ==================================================
-   NAVIGATION - COMPLETE FIX
+   NAVIGATION - LOGO FAR LEFT, MENU FAR RIGHT
    ================================================== */
 
 .navbar {
     background: #000000;
-    padding: 10px 20px;
+    padding: 10px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    width: 100%;
 }
 
 .nav-container {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    box-sizing: border-box;
 }
 
-/* ===== LOGO (LEFT) ===== */
+/* ===== LOGO (FAR LEFT) ===== */
 .nav-logo {
     display: flex;
     align-items: center;
     gap: 12px;
     flex: 0 0 auto;
+    margin-right: auto;
 }
 
 .nav-logo img {
@@ -92,7 +97,7 @@ ul {
     text-transform: uppercase;
 }
 
-/* ===== HAMBURGER BUTTON (RIGHT ON MOBILE) ===== */
+/* ===== HAMBURGER (FAR RIGHT ON MOBILE) ===== */
 .hamburger {
     display: none;
     flex-direction: column;
@@ -126,7 +131,7 @@ ul {
     transform: rotate(-45deg) translate(5px, -6px);
 }
 
-/* ===== NAV MENU (DESKTOP) ===== */
+/* ===== NAV MENU (FAR RIGHT ON DESKTOP) ===== */
 .nav-menu {
     display: flex;
     align-items: center;
@@ -134,6 +139,7 @@ ul {
     margin: 0;
     padding: 0;
     list-style: none;
+    margin-left: auto;
 }
 
 .nav-menu > li {
@@ -161,7 +167,8 @@ ul {
     display: none;
     position: absolute;
     top: 100%;
-    left: 0;
+    right: 0;
+    left: auto;
     background: #000000;
     min-width: 220px;
     border-radius: 0 0 8px 8px;
@@ -191,20 +198,20 @@ ul {
 }
 
 /* ==================================================
-   MOBILE RESPONSIVE - COMPLETE FIX
+   MOBILE RESPONSIVE NAVIGATION
    ================================================== */
 
 @media (max-width: 768px) {
     .navbar {
-        padding: 8px 15px;
+        padding: 8px 0;
     }
 
     .nav-container {
         position: relative;
         flex-wrap: wrap;
+        padding: 0 15px;
     }
 
-    /* Logo stays on left */
     .nav-logo {
         flex: 0 0 auto;
     }
@@ -221,13 +228,11 @@ ul {
         font-size: 0.55rem;
     }
 
-    /* Hamburger shows on right */
     .hamburger {
         display: flex !important;
         margin-left: auto;
     }
 
-    /* Menu hidden by default on mobile */
     .nav-menu {
         display: none !important;
         flex-direction: column;
@@ -237,6 +242,7 @@ ul {
         background: #000000;
         border-top: 1px solid rgba(255, 255, 255, 0.1);
         margin-top: 10px;
+        margin-left: 0;
         order: 3;
     }
 
@@ -264,7 +270,6 @@ ul {
         color: var(--primary);
     }
 
-    /* Dropdown on mobile */
     .dropdown-menu {
         position: static !important;
         background: rgba(255, 255, 255, 0.05) !important;
@@ -312,6 +317,10 @@ ul {
 }
 
 @media (max-width: 480px) {
+    .nav-container {
+        padding: 0 12px;
+    }
+
     .nav-logo img {
         height: 32px;
     }
@@ -336,170 +345,9 @@ ul {
 }
 
 /* ==================================================
-   PARTNERS CAROUSEL / SLIDER - COMPLETE FIX
+   HERO SECTION
    ================================================== */
 
-.partners-carousel-wrapper {
-    position: relative;
-    overflow: hidden;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px 50px;
-}
-
-.partners-track {
-    display: flex;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    gap: 30px;
-    will-change: transform;
-}
-
-.partners-track .partner-logo {
-    flex: 0 0 calc(33.333% - 20px);
-    min-width: 200px;
-    background: var(--white);
-    padding: 25px 20px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-}
-
-.partners-track .partner-logo:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-}
-
-.partners-track .partner-logo img {
-    max-width: 100%;
-    height: auto;
-    max-height: 80px;
-    object-fit: contain;
-    margin-bottom: 10px;
-}
-
-.partners-track .partner-logo p {
-    font-weight: 600;
-    color: var(--primary);
-    font-size: 0.9rem;
-    margin: 5px 0;
-}
-
-.partner-tag {
-    display: inline-block;
-    background: var(--gold);
-    color: var(--primary);
-    padding: 3px 14px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    margin-top: 5px;
-}
-
-/* Carousel buttons */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--primary);
-    color: var(--gold);
-    border: 2px solid var(--gold);
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.5rem;
-    font-weight: bold;
-    z-index: 10;
-    transition: var(--transition);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-}
-
-.carousel-btn:hover {
-    background: var(--gold);
-    color: var(--primary);
-    transform: translateY(-50%) scale(1.1);
-}
-
-.carousel-btn.prev {
-    left: 0;
-}
-
-.carousel-btn.next {
-    right: 0;
-}
-
-/* Carousel dots */
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.carousel-dots .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #ccc;
-    border: none;
-    cursor: pointer;
-    transition: var(--transition);
-    padding: 0;
-}
-
-.carousel-dots .dot.active {
-    background: var(--gold);
-    transform: scale(1.2);
-}
-
-/* Mobile partners carousel */
-@media (max-width: 768px) {
-    .partners-carousel-wrapper {
-        padding: 20px 30px;
-    }
-
-    .partners-track {
-        gap: 15px;
-    }
-
-    .partners-track .partner-logo {
-        flex: 0 0 calc(100% - 10px);
-        min-width: unset;
-        padding: 20px 15px;
-    }
-
-    .partners-track .partner-logo img {
-        max-height: 60px;
-    }
-
-    .partners-track .partner-logo p {
-        font-size: 0.8rem;
-    }
-
-    .carousel-btn {
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .partners-track .partner-logo {
-        flex: 0 0 calc(50% - 15px);
-        min-width: unset;
-    }
-}
-
-/* ==================================================
-   REST OF YOUR STYLES (KEEP AS IS)
-   ================================================== */
-
-/* ---------- Hero Section ---------- */
 .hero {
     background: linear-gradient(rgba(10, 10, 46, 0.75), rgba(10, 10, 46, 0.75)), url('../images/denmak-fans-2.jpg') center/cover no-repeat;
     padding: 0;
@@ -863,7 +711,7 @@ section h2::after {
     color: var(--primary);
 }
 
-/* ---------- Squad (RECTANGULAR photos) ---------- */
+/* ---------- Squad ---------- */
 .squad-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1850,6 +1698,143 @@ footer {
 }
 
 /* ==================================================
+   PARTNERS CAROUSEL
+   ================================================== */
+
+.partners-carousel-wrapper {
+    position: relative;
+    overflow: hidden;
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 20px 60px;
+    background: transparent;
+}
+
+.partners-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 30px;
+    will-change: transform;
+}
+
+.partners-track .partner-logo {
+    flex: 0 0 calc(33.333% - 20px);
+    min-width: 200px;
+    background: #ffffff;
+    padding: 30px 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid #e8e8e8;
+}
+
+.partners-track .partner-logo:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.partners-track .partner-logo img {
+    max-width: 100%;
+    height: auto;
+    max-height: 80px;
+    object-fit: contain;
+    margin-bottom: 12px;
+}
+
+.partners-track .partner-logo p {
+    font-weight: 700;
+    color: #0a0a2e;
+    font-size: 0.95rem;
+    margin: 8px 0 5px 0;
+}
+
+.partner-tag {
+    display: inline-block;
+    background: #f9d423;
+    color: #0a0a2e;
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #0a0a2e;
+    color: #f9d423;
+    border: 2px solid #f9d423;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.8rem;
+    font-weight: bold;
+    z-index: 10;
+    transition: all 0.3s ease;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    padding: 0;
+    line-height: 1;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-btn:hover {
+    background: #f9d423;
+    color: #0a0a2e;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 20px rgba(249, 212, 35, 0.4);
+}
+
+.carousel-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-btn.prev {
+    left: 0;
+}
+
+.carousel-btn.next {
+    right: 0;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.carousel-dots .dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ccc;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.carousel-dots .dot.active {
+    background: #f9d423;
+    transform: scale(1.3);
+    box-shadow: 0 0 10px rgba(249, 212, 35, 0.4);
+}
+
+.carousel-dots .dot:hover {
+    background: #f9d423;
+    transform: scale(1.1);
+}
+
+/* ==================================================
    RESPONSIVE - ADDITIONAL BREAKPOINTS
    ================================================== */
 
@@ -1947,7 +1932,6 @@ footer {
     .match-hero-content h1, .history-hero-content h1, .squad-hero-content h1 { font-size: 4.5rem; }
     .page-header h1 { font-size: 3.5rem; }
 
-    .nav-container,
     section > *:not(.page-header):not(.hero):not(.match-hero):not(.history-hero):not(.squad-hero),
     .footer-content,
     .history-content {
@@ -1958,183 +1942,7 @@ footer {
         padding: 40px;
     }
 }
-/* ==================================================
-   PARTNERS CAROUSEL - COMPLETE WORKING FIX
-   ================================================== */
 
-.partners-carousel-wrapper {
-    position: relative;
-    overflow: hidden;
-    max-width: 1200px;
-    margin: 30px auto;
-    padding: 20px 60px;
-    background: transparent;
-}
-
-.partners-track {
-    display: flex;
-    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    gap: 30px;
-    will-change: transform;
-}
-
-/* Each partner card */
-.partners-track .partner-logo {
-    flex: 0 0 calc(33.333% - 20px);
-    min-width: 200px;
-    background: #ffffff;
-    padding: 30px 20px;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    border: 1px solid #e8e8e8;
-}
-
-.partners-track .partner-logo:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-}
-
-.partners-track .partner-logo img {
-    max-width: 100%;
-    height: auto;
-    max-height: 80px;
-    object-fit: contain;
-    margin-bottom: 12px;
-}
-
-.partners-track .partner-logo p {
-    font-weight: 700;
-    color: #0a0a2e;
-    font-size: 0.95rem;
-    margin: 8px 0 5px 0;
-}
-
-.partner-tag {
-    display: inline-block;
-    background: #f9d423;
-    color: #0a0a2e;
-    padding: 4px 16px;
-    border-radius: 20px;
-    font-size: 0.7rem;
-    font-weight: bold;
-    margin-top: 5px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-/* ===== CAROUSEL BUTTONS - VISIBLE AND CLICKABLE ===== */
-.carousel-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: #0a0a2e;
-    color: #f9d423;
-    border: 2px solid #f9d423;
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 1.8rem;
-    font-weight: bold;
-    z-index: 10;
-    transition: all 0.3s ease;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    user-select: none;
-    padding: 0;
-    line-height: 1;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.carousel-btn:hover {
-    background: #f9d423;
-    color: #0a0a2e;
-    transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 4px 20px rgba(249, 212, 35, 0.4);
-}
-
-.carousel-btn:active {
-    transform: translateY(-50%) scale(0.95);
-}
-
-.carousel-btn.prev {
-    left: 0;
-}
-
-.carousel-btn.next {
-    right: 0;
-}
-
-/* ===== CAROUSEL DOTS ===== */
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-    margin-top: 25px;
-}
-
-.carousel-dots .dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: #ccc;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    padding: 0;
-}
-
-.carousel-dots .dot.active {
-    background: #f9d423;
-    transform: scale(1.3);
-    box-shadow: 0 0 10px rgba(249, 212, 35, 0.4);
-}
-
-.carousel-dots .dot:hover {
-    background: #f9d423;
-    transform: scale(1.1);
-}
-
-/* ===== RESPONSIVE ===== */
-@media (max-width: 768px) {
-    .partners-carousel-wrapper {
-        padding: 15px 35px;
-    }
-
-    .partners-track {
-        gap: 15px;
-    }
-
-    .partners-track .partner-logo {
-        flex: 0 0 calc(100% - 10px);
-        min-width: unset;
-        padding: 20px 15px;
-    }
-
-    .partners-track .partner-logo img {
-        max-height: 60px;
-    }
-
-    .partners-track .partner-logo p {
-        font-size: 0.8rem;
-    }
-
-    .carousel-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 1.2rem;
-    }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-    .partners-track .partner-logo {
-        flex: 0 0 calc(50% - 15px);
-        min-width: unset;
-    }
-}
 .credits-profile .social-link .icon {
     font-size: 1.3rem;
 }
