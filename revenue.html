@@ -9,42 +9,44 @@
 </head>
 <body>
     <nav class="navbar">
-    <div class="nav-container">
-        <div class="nav-logo">
-            <img src="images/logo.png" alt="Denmak FC Logo" style="height: 50px;">
-            <div class="club-name">
-                DENMAK FC
-                <span class="nickname">Maganyakulo</span>
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="images/logo.png" alt="Denmak FC Logo" class="logo-img">
+                <div class="club-name">
+                    DENMAK FC
+                    <span class="nickname">Maganyakulo</span>
+                </div>
             </div>
+            
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html"> Home</a></li>
+                <li><a href="pages/news.html"> Latest News</a></li> <!-- Added News Link -->
+                <li><a href="matches.html"> Match Centre</a></li>
+                <li><a href="squad.html"> Squad</a></li>
+                <li><a href="history.html"> History</a></li>
+                <li class="dropdown">
+                    <a href="revenue.html" class="active"> Revenue ▾</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="store.html"> Online Store</a></li>
+                        <li><a href="partnerships.html"> Adverts & Partnerships</a></li>
+                    </ul>
+                </li>
+            </ul>
         </div>
-        
-        <!-- Hamburger Button -->
-        <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
-        
-        <ul class="nav-menu" id="navMenu">
-            <li><a href="index.html"> Home</a></li>
-            <li><a href="matches.html"> Match Centre</a></li>
-            <li><a href="squad.html"> Squad</a></li>
-            <li class="dropdown">
-                <a href="revenue.html" class="active"> Revenue ▾</a>
-                <ul class="dropdown-menu">
-                    <li><a href="store.html"> Online Store</a></li>
-                    <li><a href="partnerships.html"> Adverts & Partnerships</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-</nav>
+    </nav>
 
     <section class="page-header">
-        <h1> Revenue & Commercial</h1>
+        <h1>Revenue & Commercial</h1>
         <p>Support Denmak FC through our commercial partners</p>
     </section>
 
+    <!-- Main Revenue Options (Existing) -->
     <section class="revenue-options">
         <div class="revenue-grid">
             <div class="revenue-card store-card">
@@ -75,8 +77,47 @@
         </div>
     </section>
 
+    <!-- Why Partner Section (Updated with Evidence) -->
     <section class="why-partner">
-        <h2> Why Partner With Denmak FC?</h2>
+        <h2>Why Partner With Denmak FC?</h2>
+        
+        <!-- New Evidence Section from PDF Advice #5 -->
+        <div class="partner-evidence">
+            <h3>Our Audience & Reach</h3>
+            <div class="evidence-grid">
+                <div class="evidence-item">
+                    <span class="evidence-icon"></span>
+                    <h4>Club Audience Profile</h4>
+                    <p>10,000+ passionate fans across Kwale County, Mombasa, and beyond.</p>
+                </div>
+                <div class="evidence-item">
+                    <span class="evidence-icon"></span>
+                    <h4>Verified Social Media Stats</h4>
+                    <p>Over 1M+ reach across Facebook, Instagram, and YouTube.</p>
+                </div>
+                <div class="evidence-item">
+                    <span class="evidence-icon"></span>
+                    <h4>Match Attendance</h4>
+                    <p>Average of 2,500+ fans per home match at Maganyakulo Ground.</p>
+                </div>
+                <div class="evidence-item">
+                    <span class="evidence-icon"></span>
+                    <h4>Geographic Reach</h4>
+                    <p>Strong presence in Matuga, Waa, Kombani, and Mombasa.</p>
+                </div>
+                <div class="evidence-item">
+                    <span class="evidence-icon"></span>
+                    <h4>Media Appearances</h4>
+                    <p>Featured on national TV, radio, and in parliamentary records.</p>
+                </div>
+                <div class="evidence-item">
+                    <span class="evidence-icon"></span>
+                    <h4>Community Activities</h4>
+                    <p>Active in youth development, grassroots football, and local charity.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="stats-highlight">
             <div class="highlight-item">
                 <span class="highlight-number">10,000+</span>
@@ -87,7 +128,7 @@
                 <span class="highlight-label">Social Media Reach</span>
             </div>
             <div class="highlight-item">
-                <span class="highlight-number">67</span>
+                <span class="highlight-number">70</span>
                 <span class="highlight-label">Points This Season</span>
             </div>
             <div class="highlight-item">
@@ -95,52 +136,168 @@
                 <span class="highlight-label">Position in Pool A</span>
             </div>
         </div>
-        <p class="partner-cta">Join the growing family of Denmak FC partners and sponsors.</p>
     </section>
 
-   <footer>
-    <div class="footer-content">
-        <div class="footer-section">
-            <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
-                <img src="images/logo.png" alt="Denmak FC Logo" style="height: 50px;">
-                <h4 style="margin: 0;">Denmak FC</h4>
+    <!-- NEW: Detailed Sponsorship Opportunities Table (From PDF Advice #5) -->
+    <section class="sponsorship-opportunities">
+        <h2>Sponsorship Opportunities</h2>
+        <p class="section-intro">Choose the package that best fits your brand's goals. All packages can be customized.</p>
+        
+        <div class="opportunities-table-wrapper">
+            <table class="opportunities-table">
+                <thead>
+                    <tr>
+                        <th>Opportunity</th>
+                        <th>Possible Benefit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Main Sponsor</td>
+                        <td>Front-of-shirt and major club visibility</td>
+                    </tr>
+                    <tr>
+                        <td>Kit Sponsor</td>
+                        <td>Branding on playing and training kits</td>
+                    </tr>
+                    <tr>
+                        <td>Matchday Sponsor</td>
+                        <td>Visibility around one selected fixture</td>
+                    </tr>
+                    <tr>
+                        <td>Player Sponsor</td>
+                        <td>Association with an individual player</td>
+                    </tr>
+                    <tr>
+                        <td>Transport Partner</td>
+                        <td>Branding on the team bus</td>
+                    </tr>
+                    <tr>
+                        <td>Medical Partner</td>
+                        <td>Health services and brand exposure</td>
+                    </tr>
+                    <tr>
+                        <td>Digital Partner</td>
+                        <td>Website and social-media placement</td>
+                    </tr>
+                    <tr>
+                        <td>Community Partner</td>
+                        <td>Youth and grassroots programme visibility</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- NEW: Available Branding Locations & Deliverables -->
+        <div class="branding-deliverables">
+            <div class="deliverable-box">
+                <h3>Available Branding Locations</h3>
+                <ul>
+                    <li>Front of Home & Away Shirts</li>
+                    <li>Sleeve & Back of Shirts</li>
+                    <li>Training Kits</li>
+                    <li>Team Bus</li>
+                    <li>Stadium Banners & Perimeter Boards</li>
+                    <li>Website & Social Media Banners</li>
+                    <li>Matchday Programs</li>
+                </ul>
             </div>
-            <p>Maganyakulo, Matuga Constituency<br>Kwale County, Kenya</p>
-            <p>fcdenmak@gmail.com</p>
-            <p>+254 118 514 735</p>
-        </div>
-        <div class="footer-section">
-            <h4>Quick Links</h4>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="matches.html">Match Centre</a></li>
-                <li><a href="history.html">History</a></li>
-                <li><a href="squad.html">Squad</a></li>
-                <li><a href="store.html">Store</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h4>Legal</h4>
-            <ul>
-                <li><a href="pages/terms.html">Terms of Service</a></li>
-                <li><a href="pages/privacy.html">Privacy Policy</a></li>
-                <li><a href="pages/sitemap.html">Site Map</a></li>
-            </ul>
-        </div>
-        <div class="footer-section">
-            <h4>Follow Us</h4>
-            <div class="social-links">
-                <a href="https://www.facebook.com/profile.php?id=100083734833393">Facebook</a>
-                <a href="https://www.instagram.com/denmak_fc_maganyakulo?exln=MWQzYnJ5ZmRseGR4cQ==">Instagram</a>
-                <a href="https://www.youtube.com/@DenmakFC" target="_blank">YouTube</a>
+            <div class="deliverable-box">
+                <h3>Clear Sponsorship Deliverables</h3>
+                <ul>
+                    <li>Logo placement on all agreed assets</li>
+                    <li>Social media announcements & features</li>
+                    <li>Matchday PA announcements</li>
+                    <li>VIP match tickets & hospitality</li>
+                    <li>Professional photos of branding in action</li>
+                    <li>Post-campaign report with analytics</li>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; 2026 Denmak FC Maganyakulo. All rights reserved.</p>
-        <p style="margin-top: 5px; font-size: 0.8rem; color: rgba(255, 255, 255, 0.4);">
-        </p>
-    </div>
+
+        <!-- NEW: Downloadable Proposal & Direct Enquiry -->
+        <div class="sponsorship-cta">
+            <h3>Ready to Partner With Us?</h3>
+            <p>Download our full sponsorship proposal or get in touch directly.</p>
+            <div class="cta-buttons">
+                <!-- You need to create this PDF and place it in a documents folder -->
+                <a href="documents/Denmak_FC_Sponsorship_Proposal.pdf" download class="btn btn-download">Download Sponsorship Proposal (PDF)</a>
+                <a href="https://wa.me/254118514735?text=Hello%20Denmak%20FC,%20I%20am%20interested%20in%20sponsoring%20the%20club." target="_blank" class="btn btn-whatsapp">Enquire on WhatsApp</a>
+                <a href="mailto:fcdenmak@gmail.com?subject=Sponsorship%20Enquiry" class="btn btn-email">Email Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partners Section (Optional, but good to keep) -->
+    <section class="current-partners">
+        <h2>Our Current Partners</h2>
+        <div class="partners-carousel-wrapper">
+            <button class="carousel-btn prev" aria-label="Previous">‹</button>
+            <div class="partners-track">
+                <div class="partner-logo">
+                    <img src="images/Kombani-Homes Logo.jpg" alt="KOMBANI HOMES LIMITED">
+                    <p>KOMBANI HOMES LIMITED</p>
+                    <span class="partner-tag">MAIN SPONSOR</span>
+                </div>
+                <div class="partner-logo">
+                    <img src="images/RASHID ABDALLAH FOUNDATION.jpg" alt="RASHID ABDALLAH FOUNDATION">
+                    <p>RASHID ABDALLAH FOUNDATION</p>
+                    <span class="partner-tag">SPONSOR</span>
+                </div>
+                <div class="partner-logo">
+                    <img src="images/sambasports-logo.png" alt="SAMBASPORTS YOUTH TRUST">
+                    <p>SAMBASPORTS YOUTH TRUST</p>
+                    <span class="partner-tag">PARTNER</span>
+                </div>
+            </div>
+            <button class="carousel-btn next" aria-label="Next">›</button>
+        </div>
+        <div class="carousel-dots"></div>
+    </section>
+
+    <!-- Footer (Updated with Real Contact Info) -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                    <img src="images/logo.png" alt="Denmak FC Logo" style="height: 50px;">
+                    <h4 style="margin: 0;">Denmak FC</h4>
+                </div>
+                <p>Maganyakulo, Matuga Constituency<br>Kwale County, Kenya</p>
+                <p><a href="mailto:fcdenmak@gmail.com" style="color: var(--gold);">fcdenmak@gmail.com</a></p>
+                <p><a href="tel:+254118514735" style="color: var(--gold);">+254 118 514 735</a></p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="pages/news.html">Latest News</a></li>
+                    <li><a href="matches.html">Match Centre</a></li>
+                    <li><a href="history.html">History</a></li>
+                    <li><a href="squad.html">Squad</a></li>
+                    <li><a href="store.html">Store</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="pages/terms.html">Terms of Service</a></li>
+                    <li><a href="pages/privacy.html">Privacy Policy</a></li>
+                    <li><a href="pages/sitemap.html">Site Map</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Follow Us</h4>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=100083734833393" target="_blank">Facebook</a>
+                    <a href="https://www.instagram.com/denmak_fc_maganyakulo?exln=MWQzYnJ5ZmRseGR4cQ==" target="_blank">Instagram</a>
+                    <a href="https://www.youtube.com/@DenmakFC" target="_blank">YouTube</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Denmak FC Maganyakulo. All rights reserved.</p>
+        </div>
     </footer>
 
     <script src="js/script.js"></script>

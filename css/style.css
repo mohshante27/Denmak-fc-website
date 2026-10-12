@@ -2208,3 +2208,434 @@ footer {
         justify-content: center;
     }
 }
+/* ==================================================
+   SPONSORSHIP & REVENUE PAGE UPDATES
+   ================================================== */
+
+/* Partner Evidence Section */
+.partner-evidence {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.partner-evidence h3 {
+    text-align: center;
+    color: var(--primary);
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+.evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+.evidence-item {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    border-top: 4px solid var(--gold);
+    transition: transform 0.3s ease;
+}
+.evidence-item:hover {
+    transform: translateY(-5px);
+}
+.evidence-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 10px;
+}
+.evidence-item h4 {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+.evidence-item p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Sponsorship Opportunities Table */
+.sponsorship-opportunities {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+.section-intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+.opportunities-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 40px;
+}
+.opportunities-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+.opportunities-table th {
+    background: var(--primary);
+    color: var(--white);
+    padding: 15px;
+    text-align: left;
+    font-size: 1rem;
+}
+.opportunities-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
+.opportunities-table tr:hover {
+    background: #f9f9f9;
+}
+.opportunities-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Branding & Deliverables Boxes */
+.branding-deliverables {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+.deliverable-box {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--gold);
+}
+.deliverable-box h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+.deliverable-box ul {
+    list-style: none;
+    padding: 0;
+}
+.deliverable-box ul li {
+    padding: 8px 0;
+    color: #555;
+    position: relative;
+    padding-left: 25px;
+}
+.deliverable-box ul li::before {
+    content: '✔';
+    color: var(--gold);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Sponsorship CTA Section */
+.sponsorship-cta {
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    padding: 50px 30px;
+    border-radius: 16px;
+    color: var(--white);
+}
+.sponsorship-cta h3 {
+    color: var(--gold);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+.sponsorship-cta p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.btn-download {
+    background: var(--gold);
+    color: var(--primary);
+}
+.btn-download:hover {
+    background: var(--gold-dark);
+}
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+}
+.btn-whatsapp:hover {
+    background: #128C7E;
+}
+.btn-email {
+    background: var(--white);
+    color: var(--primary);
+}
+.btn-email:hover {
+    background: #eee;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .branding-deliverables {
+        grid-template-columns: 1fr;
+    }
+    .evidence-grid {
+        grid-template-columns: 1fr;
+    }
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cta-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+}
+/* ==================================================
+   PARTNERSHIPS PAGE UPDATES
+   ================================================== */
+
+.partnership-intro {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 40px 20px 0;
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Partner Evidence Section */
+.partner-evidence-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+.partner-evidence-section h2 {
+    text-align: center;
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+.partner-evidence-section h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--gold);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+.section-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+.evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+.evidence-item {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    text-align: center;
+    border-top: 4px solid var(--gold);
+    transition: transform 0.3s ease;
+}
+.evidence-item:hover {
+    transform: translateY(-5px);
+}
+.evidence-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 10px;
+}
+.evidence-item h4 {
+    color: var(--primary);
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+}
+.evidence-item p {
+    color: #666;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+/* Sponsorship Opportunities Table */
+.sponsorship-opportunities {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+.sponsorship-opportunities h2 {
+    text-align: center;
+    color: var(--primary);
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+.sponsorship-opportunities h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--gold);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+.section-intro {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+.opportunities-table-wrapper {
+    overflow-x: auto;
+    margin-bottom: 40px;
+}
+.opportunities-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+.opportunities-table th {
+    background: var(--primary);
+    color: var(--white);
+    padding: 15px;
+    text-align: left;
+    font-size: 1rem;
+}
+.opportunities-table td {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.95rem;
+}
+.opportunities-table tr:hover {
+    background: #f9f9f9;
+}
+.opportunities-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Branding & Deliverables Boxes */
+.branding-deliverables {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-bottom: 50px;
+}
+.deliverable-box {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 5px solid var(--gold);
+}
+.deliverable-box h3 {
+    color: var(--primary);
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+.deliverable-box ul {
+    list-style: none;
+    padding: 0;
+}
+.deliverable-box ul li {
+    padding: 8px 0;
+    color: #555;
+    position: relative;
+    padding-left: 25px;
+}
+.deliverable-box ul li::before {
+    content: '✔';
+    color: var(--gold);
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+/* Sponsorship CTA Section */
+.sponsorship-cta-section {
+    max-width: 1000px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+.sponsorship-cta {
+    text-align: center;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    padding: 50px 30px;
+    border-radius: 16px;
+    color: var(--white);
+}
+.sponsorship-cta h3 {
+    color: var(--gold);
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+}
+.sponsorship-cta p {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 30px;
+    font-size: 1.1rem;
+}
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+.btn-download {
+    background: var(--gold);
+    color: var(--primary);
+}
+.btn-download:hover {
+    background: var(--gold-dark);
+}
+.btn-whatsapp {
+    background: #25D366;
+    color: white;
+}
+.btn-whatsapp:hover {
+    background: #128C7E;
+}
+.btn-email {
+    background: var(--white);
+    color: var(--primary);
+}
+.btn-email:hover {
+    background: #eee;
+}
+
+/* Responsive Adjustments for Partnerships Page */
+@media (max-width: 768px) {
+    .branding-deliverables {
+        grid-template-columns: 1fr;
+    }
+    .evidence-grid {
+        grid-template-columns: 1fr;
+    }
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cta-buttons .btn {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+}
