@@ -1,0 +1,225 @@
+{
+  "league": {
+    "name": "FKF Division Two Northern Zone",
+    "pool": "Pool A",
+    "season": "2025/2026",
+    "clubStats": {
+      "points": 70,
+      "position": 1,
+      "matches": 28,
+      "won": 22,
+      "drawn": 4,
+      "lost": 2,
+      "goalDifference": "+36",
+      "form": ["W", "W", "W", "W", "W"]
+    }
+  },
+  "nextMatch": {
+    "homeTeam": "Denmak FC",
+    "awayTeam": "Rwafa FC",
+    "date": "August 8, 2026",
+    "time": "3:00 PM EAT",
+    "venue": "Kombani Ground, Kombani",
+    "competition": "FKF Division Two - Pool A",
+    "ticketInfo": "Free Entry / VIP KSh 200"
+  },
+  "fixtures": [
+    {
+      "id": "fix-1",
+      "date": "Aug 8, 2026",
+      "time": "3:00 PM",
+      "homeTeam": "Denmak FC",
+      "awayTeam": "Rwafa FC",
+      "venue": "Kombani Ground",
+      "competition": "League"
+    },
+    {
+      "id": "fix-2",
+      "date": "Aug 17, 2026",
+      "time": "2:00 PM",
+      "homeTeam": "Young Bulls",
+      "awayTeam": "Denmak FC",
+      "venue": "Mombasa Sports Club",
+      "competition": "League"
+    },
+    {
+      "id": "fix-3",
+      "date": "Aug 24, 2026",
+      "time": "3:00 PM",
+      "homeTeam": "Denmak FC",
+      "awayTeam": "Wayzata Boys",
+      "venue": "Maganyakulo Ground",
+      "competition": "League"
+    },
+    {
+      "id": "fix-4",
+      "date": "Sep 2, 2026",
+      "time": "3:00 PM",
+      "homeTeam": "Denmak FC",
+      "awayTeam": "Kisumu Ndogo",
+      "venue": "Maganyakulo Ground",
+      "competition": "League"
+    },
+    {
+      "id": "fix-5",
+      "date": "Sep 10, 2026",
+      "time": "3:00 PM",
+      "homeTeam": "Good Hope",
+      "awayTeam": "Denmak FC",
+      "venue": "Msambweni Ground",
+      "competition": "League"
+    }
+  ],
+  "results": [
+    {
+      "id": "res-1",
+      "date": "Jul 25, 2026",
+      "opponent": "Spaki Youth",
+      "location": "A",
+      "score": "0 - 3",
+      "status": "W",
+      "outcome": "win",
+      "competition": "League"
+    },
+    {
+      "id": "res-2",
+      "date": "Jul 18, 2026",
+      "opponent": "Ubuntu FC",
+      "location": "H",
+      "score": "3 - 1",
+      "status": "W",
+      "outcome": "win",
+      "competition": "League"
+    },
+    {
+      "id": "res-3",
+      "date": "Jul 11, 2026",
+      "opponent": "Matano Mane",
+      "location": "H",
+      "score": "2 - 0",
+      "status": "W/O",
+      "outcome": "win",
+      "competition": "League (Walkover)"
+    },
+    {
+      "id": "res-4",
+      "date": "Jul 5, 2026",
+      "opponent": "Inter Dabaso",
+      "location": "H",
+      "score": "3 - 0",
+      "status": "W",
+      "outcome": "win",
+      "competition": "League"
+    },
+    {
+      "id": "res-5",
+      "date": "Jun 28, 2026",
+      "opponent": "Junior FC",
+      "location": "A",
+      "score": "1 - 2",
+      "status": "W",
+      "outcome": "win",
+      "competition": "League"
+    },
+    {
+      "id": "res-6",
+      "date": "Jun 21, 2026",
+      "opponent": "Congo Boyz",
+      "location": "H",
+      "score": "2 - 1",
+      "status": "W",
+      "outcome": "win",
+      "competition": "League"
+    }
+  ],
+  "standings": [
+    {
+      "rank": 1,
+      "team": "Denmak FC",
+      "played": 28,
+      "won": 22,
+      "drawn": 4,
+      "lost": 2,
+      "gd": "+36",
+      "points": 70,
+      "isClub": true
+    },
+    {
+      "rank": 2,
+      "team": "Rwafa FC",
+      "played": 30,
+      "won": 16,
+      "drawn": 12,
+      "lost": 2,
+      "gd": "+33",
+      "points": 60,
+      "isClub": false
+    },
+    {
+      "rank": 3,
+      "team": "Yanga FC KE",
+      "played": 28,
+      "won": 17,
+      "drawn": 5,
+      "lost": 6,
+      "gd": "+18",
+      "points": 56,
+      "isClub": false
+    },
+    {
+      "rank": 4,
+      "team": "Kisumu Ndogo",
+      "played": 31,
+      "won": 14,
+      "drawn": 11,
+      "lost": 6,
+      "gd": "+19",
+      "points": 53,
+      "isClub": false
+    },
+    {
+      "rank": 5,
+      "team": "Good Hope",
+      "played": 27,
+      "won": 15,
+      "drawn": 7,
+      "lost": 5,
+      "gd": "+33",
+      "points": 52,
+      "isClub": false
+    },
+    {
+      "rank": 6,
+      "team": "Sparki Youth",
+      "played": 29,
+      "won": 13,
+      "drawn": 8,
+      "lost": 8,
+      "gd": "+12",
+      "points": 47,
+      "isClub": false
+    },
+    {
+      "rank": 7,
+      "team": "Ubuntu FC",
+      "played": 28,
+      "won": 11,
+      "drawn": 9,
+      "lost": 8,
+      "gd": "+5",
+      "points": 42,
+      "isClub": false
+    },
+    {
+      "rank": 8,
+      "team": "Young Bulls",
+      "played": 28,
+      "won": 10,
+      "drawn": 8,
+      "lost": 10,
+      "gd": "0",
+      "points": 38,
+      "isClub": false
+    }
+  ]
+}

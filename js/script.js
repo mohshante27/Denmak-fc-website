@@ -378,250 +378,187 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // ============================================
+    // 8. DYNAMIC MATCHES & FIXTURES LOADER (matches.json)
+    // ============================================
+    initMatches();
+
+    function initMatches() {
+        const hasNextMatch = document.querySelector('.next-match');
+        const hasResults = document.querySelector('.results-grid');
+        const hasStandings = document.querySelector('.standings');
+        const hasFixtures = document.querySelector('.fixture-list-grid');
+
+        if (!hasNextMatch && !hasResults && !hasStandings && !hasFixtures) {
+            return;
+        }
+
+        console.log('⚽ Loading matches data...');
+
+        // Detect correct relative path whether in root or /pages/
+        const jsonPath = window.location.pathname.includes('/pages/') 
+            ? '../data/matches.json' 
+            : 'data/matches.json';
+
+        // Embedded fallback data for offline / file:// protocol
+        const fallbackData = {
+            league: {
+                name: "FKF Division Two Northern Zone",
+                pool: "Pool A",
+                season: "2025/2026",
+                clubStats: { points: 70, position: 1, matches: 28, won: 22, drawn: 4, lost: 2, goalDifference: "+36" }
+            },
+            nextMatch: {
+                homeTeam: "Denmak FC",
+                awayTeam: "Rwafa FC",
+                date: "August 8, 2026",
+                time: "3:00 PM EAT",
+                venue: "Kombani Ground, Kombani",
+                competition: "FKF Division Two - Pool A",
+                ticketInfo: "Free Entry / VIP KSh 200"
+            },
+            fixtures: [
+                { id: "fix-1", date: "Aug 8, 2026", time: "3:00 PM", homeTeam: "Denmak FC", awayTeam: "Rwafa FC", venue: "Kombani Ground" },
+                { id: "fix-2", date: "Aug 17, 2026", time: "2:00 PM", homeTeam: "Young Bulls", awayTeam: "Denmak FC", venue: "Mombasa Sports Club" },
+                { id: "fix-3", date: "Aug 24, 2026", time: "3:00 PM", homeTeam: "Denmak FC", awayTeam: "Wayzata Boys", venue: "Maganyakulo Ground" },
+                { id: "fix-4", date: "Sep 2, 2026", time: "3:00 PM", homeTeam: "Denmak FC", awayTeam: "Kisumu Ndogo", venue: "Maganyakulo Ground" },
+                { id: "fix-5", date: "Sep 10, 2026", time: "3:00 PM", homeTeam: "Good Hope", awayTeam: "Denmak FC", venue: "Msambweni Ground" }
+            ],
+            results: [
+                { date: "Jul 25, 2026", opponent: "Spaki Youth", location: "A", score: "0 - 3", status: "W", outcome: "win" },
+                { date: "Jul 18, 2026", opponent: "Ubuntu FC", location: "H", score: "3 - 1", status: "W", outcome: "win" },
+                { date: "Jul 11, 2026", opponent: "Matano Mane", location: "H", score: "2 - 0", status: "W/O", outcome: "win" },
+                { date: "Jul 5, 2026", opponent: "Inter Dabaso", location: "H", score: "3 - 0", status: "W", outcome: "win" },
+                { date: "Jun 28, 2026", opponent: "Junior FC", location: "A", score: "1 - 2", status: "W", outcome: "win" },
+                { date: "Jun 21, 2026", opponent: "Congo Boyz", location: "H", score: "2 - 1", status: "W", outcome: "win" }
+            ],
+            standings: [
+                { rank: 1, team: "Denmak FC", played: 28, won: 22, drawn: 4, lost: 2, gd: "+36", points: 70, isClub: true },
+                { rank: 2, team: "Rwafa FC", played: 30, won: 16, drawn: 12, lost: 2, gd: "+33", points: 60, isClub: false },
+                { rank: 3, team: "Yanga FC KE", played: 28, won: 17, drawn: 5, lost: 6, gd: "+18", points: 56, isClub: false },
+                { rank: 4, team: "Kisumu Ndogo", played: 31, won: 14, drawn: 11, lost: 6, gd: "+19", points: 53, isClub: false },
+                { rank: 5, team: "Good Hope", played: 27, won: 15, drawn: 7, lost: 5, gd: "+33", points: 52, isClub: false },
+                { rank: 6, team: "Sparki Youth", played: 29, won: 13, drawn: 8, lost: 8, gd: "+12", points: 47, isClub: false },
+                { rank: 7, team: "Ubuntu FC", played: 28, won: 11, drawn: 9, lost: 8, gd: "+5", points: 42, isClub: false },
+                { rank: 8, team: "Young Bulls", played: 28, won: 10, drawn: 8, lost: 10, gd: "0", points: 38, isClub: false }
+            ]
+        };
+
+        fetch(jsonPath)
+            .then(res => {
+                if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                return res.json();
+            })
+            .then(data => {
+                window.DenmakMatches = data;
+                applyMatchData(data);
+                console.log('✅ Matches data loaded dynamically from JSON!');
+            })
+            .catch(err => {
+                console.warn('⚠️ Could not fetch matches.json (likely file:// protocol or offline). Using embedded data.', err.message);
+                window.DenmakMatches = fallbackData;
+                applyMatchData(fallbackData);
+            });
+    }
+
+    function applyMatchData(data) {
+        // 1. Update Hero stats on homepage
+        if (data.league && data.league.clubStats) {
+            const statNumbers = document.querySelectorAll('.hero-stats .stat-item .stat-number');
+            if (statNumbers.length >= 3) {
+                statNumbers[0].textContent = data.league.clubStats.points;
+                statNumbers[1].textContent = `#${data.league.clubStats.position}`;
+                statNumbers[2].textContent = data.league.clubStats.matches;
+            }
+        }
+
+        // 2. Update Next Match / Featured Fixture on homepage
+        if (data.nextMatch) {
+            const featuredCard = document.querySelector('.next-match .match-card');
+            if (featuredCard) {
+                featuredCard.innerHTML = `
+                    <div class="match-details">
+                        <span class="match-date">📅 ${data.nextMatch.date}</span>
+                        <span class="match-time">⏰ ${data.nextMatch.time}</span>
+                        <span class="match-venue">📍 ${data.nextMatch.venue}</span>
+                    </div>
+                    <div class="match-teams">
+                        <div class="team home">
+                            <span class="team-name">${data.nextMatch.homeTeam}</span>
+                            <span class="team-badge"></span>
+                        </div>
+                        <span class="vs">VS</span>
+                        <div class="team away">
+                            <span class="team-badge"></span>
+                            <span class="team-name">${data.nextMatch.awayTeam}</span>
+                        </div>
+                    </div>
+                    ${data.nextMatch.ticketInfo ? `<div style="margin-top: 15px; font-size: 0.9rem; opacity: 0.85; text-align: center;">🎟️ ${data.nextMatch.ticketInfo}</div>` : ''}
+                `;
+            }
+        }
+
+        // 3. Update Recent Results on Homepage (latest 4)
+        const homeResultsGrid = document.querySelector('.recent-results .results-grid');
+        if (homeResultsGrid && data.results) {
+            const topResults = data.results.slice(0, 4);
+            homeResultsGrid.innerHTML = topResults.map(r => `
+                <div class="result-card ${r.outcome || 'win'}">
+                    <span class="result-score">${r.score}</span>
+                    <span class="result-opponent">vs ${r.opponent} ${r.location ? `(${r.location})` : ''}</span>
+                    <span class="result-date">${r.date}</span>
+                    <span class="result-status">${r.status === 'W' ? '✅ Win' : r.status === 'W/O' ? '✅ Walkover' : r.status === 'D' ? '🤝 Draw' : '❌ Loss'}</span>
+                </div>
+            `).join('');
+        }
+
+        // 4. Update Standings Table on Match Centre page
+        const standingsTbody = document.querySelector('.standings tbody');
+        if (standingsTbody && data.standings) {
+            standingsTbody.innerHTML = data.standings.map(row => `
+                <tr class="${row.isClub ? 'highlight' : ''}">
+                    <td>${row.rank}</td>
+                    <td><strong>${row.team}</strong>${row.isClub ? ' ⭐' : ''}</td>
+                    <td>${row.played}</td>
+                    <td>${row.won}</td>
+                    <td>${row.drawn}</td>
+                    <td>${row.lost}</td>
+                    <td>${row.gd}</td>
+                    <td><strong>${row.points}</strong></td>
+                </tr>
+            `).join('');
+        }
+
+        // 5. Update Upcoming Fixtures on Match Centre page
+        const fixturesGrid = document.querySelector('.fixture-list-grid');
+        if (fixturesGrid && data.fixtures) {
+            fixturesGrid.innerHTML = data.fixtures.map(f => `
+                <div class="fixture-card">
+                    <span class="fixture-date">📅 ${f.date}</span>
+                    <span class="fixture-time">⏰ ${f.time}</span>
+                    <div class="fixture-teams">
+                        <span class="home-team">${f.homeTeam}</span>
+                        <span class="vs">vs</span>
+                        <span class="away-team">${f.awayTeam}</span>
+                    </div>
+                    ${f.venue ? `<div style="font-size: 0.85rem; color: #888; margin-top: 8px;">📍 ${f.venue}</div>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // 6. Update Recent Results on Match Centre page
+        const matchesResultsGrid = document.querySelector('.results-section .results-grid');
+        if (matchesResultsGrid && data.results) {
+            matchesResultsGrid.innerHTML = data.results.map(r => `
+                <div class="result-card ${r.outcome || 'win'}">
+                    <span class="result-score">${r.score}</span>
+                    <span class="result-opponent">vs ${r.opponent} (${r.location})</span>
+                    <span class="result-date">${r.date}</span>
+                    <span class="result-status">${r.status}</span>
+                </div>
+            `).join('');
+        }
+    }
+
     console.log('🏆 Denmak FC - Ready!');
 });
-/**
- * IMPROVED PARTNERS CAROUSEL
- * Shows all cards, faster auto-slide, smooth transitions
- */
-function improvedCarousel() {
-    const wrapper = document.querySelector('.partners-carousel-wrapper');
-    if (!wrapper) {
-        console.log('❌ Carousel wrapper not found');
-        return;
-    }
-    
-    const track = wrapper.querySelector('.partners-track');
-    if (!track) {
-        console.log('❌ Track not found');
-        return;
-    }
-    
-    const slides = track.querySelectorAll('.partner-logo');
-    if (slides.length === 0) {
-        console.log('❌ No slides found');
-        return;
-    }
-    
-    // Clone slides for seamless infinite scroll effect
-    const originalSlides = Array.from(slides);
-    originalSlides.forEach(slide => {
-        const clone = slide.cloneNode(true);
-        track.appendChild(clone);
-    });
-    
-    console.log(`✅ Found ${originalSlides.length} partner cards`);
-    
-    let currentIndex = 0;
-    const totalSlides = originalSlides.length;
-    const totalClones = track.children.length;
-    
-    // Get slides per view based on screen size
-    function getSlidesPerView() {
-        if (window.innerWidth <= 480) return 1;
-        if (window.innerWidth <= 768) return 2;
-        if (window.innerWidth <= 1024) return 3;
-        return 4;
-    }
-    
-    // Get slide width including gap
-    function getSlideWidth() {
-        const firstSlide = track.querySelector('.partner-logo');
-        if (!firstSlide) return 250;
-        return firstSlide.offsetWidth + 30; // width + gap
-    }
-    
-    let slidesPerView = getSlidesPerView();
-    let slideWidth = getSlideWidth();
-    let autoSlideInterval;
-    let isAnimating = false;
-    
-    function updateCarousel() {
-        if (isAnimating) return;
-        isAnimating = true;
-        
-        // Reset to beginning if we've gone past clones
-        if (currentIndex >= totalSlides) {
-            currentIndex = 0;
-            track.style.transition = 'none';
-            track.style.transform = `translateX(0)`;
-            setTimeout(() => {
-                track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-                isAnimating = false;
-            }, 50);
-            return;
-        }
-        
-        // Calculate translate amount
-        const translateX = -(currentIndex * slideWidth);
-        track.style.transform = `translateX(${translateX}px)`;
-        
-        setTimeout(() => {
-            isAnimating = false;
-        }, 500);
-    }
-    
-    function nextSlide() {
-        if (isAnimating) return;
-        
-        // Move to next slide
-        currentIndex++;
-        
-        // If we've reached the end, reset to beginning
-        if (currentIndex >= totalSlides) {
-            currentIndex = 0;
-            track.style.transition = 'none';
-            track.style.transform = `translateX(0)`;
-            setTimeout(() => {
-                track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            }, 50);
-            return;
-        }
-        
-        updateCarousel();
-    }
-    
-    function prevSlide() {
-        if (isAnimating) return;
-        
-        currentIndex--;
-        if (currentIndex < 0) {
-            currentIndex = totalSlides - 1;
-        }
-        updateCarousel();
-    }
-    
-    // Auto-slide function (faster speed)
-    function startAutoSlide() {
-        if (autoSlideInterval) clearInterval(autoSlideInterval);
-        // Faster: move every 3 seconds instead of 5
-        autoSlideInterval = setInterval(nextSlide, 3000);
-    }
-    
-    function stopAutoSlide() {
-        if (autoSlideInterval) {
-            clearInterval(autoSlideInterval);
-            autoSlideInterval = null;
-        }
-    }
-    
-    function resetAutoSlide() {
-        stopAutoSlide();
-        startAutoSlide();
-    }
-    
-    // ===== BUTTON EVENTS =====
-    const prevBtn = wrapper.querySelector('.carousel-btn.prev');
-    const nextBtn = wrapper.querySelector('.carousel-btn.next');
-    
-    if (prevBtn) {
-        const newPrev = prevBtn.cloneNode(true);
-        prevBtn.parentNode.replaceChild(newPrev, prevBtn);
-        newPrev.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            prevSlide();
-            resetAutoSlide();
-        });
-    }
-    
-    if (nextBtn) {
-        const newNext = nextBtn.cloneNode(true);
-        nextBtn.parentNode.replaceChild(newNext, nextBtn);
-        newNext.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            nextSlide();
-            resetAutoSlide();
-        });
-    }
-    
-    // ===== PAUSE ON HOVER =====
-    track.addEventListener('mouseenter', stopAutoSlide);
-    track.addEventListener('mouseleave', startAutoSlide);
-    
-    // ===== TOUCH SUPPORT =====
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    track.addEventListener('touchstart', function(e) {
-        touchStartX = e.changedTouches[0].screenX;
-    }, { passive: true });
-    
-    track.addEventListener('touchend', function(e) {
-        touchEndX = e.changedTouches[0].screenX;
-        const diff = touchStartX - touchEndX;
-        if (Math.abs(diff) > 30) {
-            if (diff > 0) {
-                nextSlide();
-            } else {
-                prevSlide();
-            }
-            resetAutoSlide();
-        }
-    }, { passive: true });
-    
-    // ===== WINDOW RESIZE =====
-    let resizeTimer;
-    window.addEventListener('resize', function() {
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function() {
-            slidesPerView = getSlidesPerView();
-            slideWidth = getSlideWidth();
-            // Reset position
-            currentIndex = 0;
-            track.style.transition = 'none';
-            track.style.transform = `translateX(0)`;
-            setTimeout(() => {
-                track.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
-            }, 50);
-        }, 300);
-    });
-    
-    // ===== START =====
-    updateCarousel();
-    startAutoSlide();
-    console.log('✅ Improved carousel started - faster speed (3s interval)');
-}
-
-// Initialize after images load
-function initCarouselWithImages() {
-    const track = document.querySelector('.partners-track');
-    if (!track) {
-        setTimeout(initCarouselWithImages, 500);
-        return;
-    }
-    
-    const images = track.querySelectorAll('img');
-    if (images.length === 0) {
-        // No images, start immediately
-        improvedCarousel();
-        return;
-    }
-    
-    let loaded = 0;
-    images.forEach(img => {
-        if (img.complete) {
-            loaded++;
-        } else {
-            img.addEventListener('load', () => {
-                loaded++;
-                if (loaded === images.length) {
-                    setTimeout(improvedCarousel, 100);
-                }
-            });
-            img.addEventListener('error', () => {
-                loaded++;
-                if (loaded === images.length) {
-                    setTimeout(improvedCarousel, 100);
-                }
-            });
-        }
-    });
-    
-    // Fallback: start after 1.5 seconds
-    setTimeout(improvedCarousel, 1500);
-}
-
-// Start the carousel
-setTimeout(initCarouselWithImages, 300);
