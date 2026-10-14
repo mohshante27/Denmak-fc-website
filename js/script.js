@@ -444,6 +444,15 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         };
 
+        // 1. If loaded via <script src="data/matches.js">, apply immediately (works 100% locally under file://)
+        if (typeof window.DenmakMatchesData !== 'undefined') {
+            window.DenmakMatches = window.DenmakMatchesData;
+            applyMatchData(window.DenmakMatchesData);
+            console.log('✅ Matches data loaded from data/matches.js!');
+            return;
+        }
+
+        // 2. If running on a web server (http/https), fetch matches.json
         fetch(jsonPath)
             .then(res => {
                 if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
