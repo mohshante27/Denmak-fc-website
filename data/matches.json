@@ -1,6 +1,6 @@
 {
   "league": {
-    "name": "FKF Division Two Northern Zone",
+    "name": "FKF Division 1",
     "pool": "Pool A",
     "season": "2025/2026",
     "clubStats": {
@@ -16,11 +16,11 @@
   },
   "nextMatch": {
     "homeTeam": "Denmak FC",
-    "awayTeam": "Rwafa FC",
-    "date": "August 8, 2026",
+    "awayTeam": "Black EaglesFC",
+    "date": "October 18, 2026",
     "time": "3:00 PM EAT",
     "venue": "Kombani Ground, Kombani",
-    "competition": "FKF Division Two - Pool A",
+    "competition": "Rashid Abdallah Super Cup",
     "ticketInfo": "Free Entry / VIP KSh 200"
   },
   "fixtures": [
