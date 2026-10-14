@@ -8,7 +8,11 @@ This project serves four main audiences simultaneously: **Supporters, Players, S
 
 ---
 
+<<<<<<< HEAD
 ##  Table of Contents
+=======
+## 📖 Table of Contents
+>>>>>>> 3a5badd33bf80be072ee117b5b8f341bb50b6c71
 
 - [About the Project](#-about-the-project)
 - [Key Features](#-key-features)
@@ -22,7 +26,11 @@ This project serves four main audiences simultaneously: **Supporters, Players, S
 
 ---
 
+<<<<<<< HEAD
 ##  About the Project
+=======
+## 🌟 About the Project
+>>>>>>> 3a5badd33bf80be072ee117b5b8f341bb50b6c71
 
 This website was built to transform Denmak FC from a local community team into a nationally recognized brand. It serves as a central hub for:
 
@@ -34,6 +42,7 @@ This website was built to transform Denmak FC from a local community team into a
 
 ---
 
+<<<<<<< HEAD
 ##  Key Features
 
 - ** Fully Responsive Design:** Optimized for mobile phones, which is how the majority of supporters access the site.
@@ -48,6 +57,22 @@ This website was built to transform Denmak FC from a local community team into a
 ---
 
 ##  Tech Stack
+=======
+## ✨ Key Features
+
+- **📱 Fully Responsive Design:** Optimized for mobile phones, which is how the majority of supporters access the site.
+- **⚽ Dynamic Match Centre:** Displays league tables, fixtures, and results powered by `data/matches.js`.
+- **📰 News Hub:** Dedicated section for club news, with direct links to YouTube highlights and Facebook posts.
+- **🤝 Sponsorship Portal:** Detailed packages, branding locations, and verified audience stats for potential partners.
+- **🛒 Online Store (MVP):** A frontend merchandise shop ready for WhatsApp and M-Pesa order placement.
+- **📜 Club History:** A visual timeline highlighting key milestones, including parliamentary recognition.
+- **🔍 SEO Optimized:** Structured data (JSON-LD) for SportsTeam, Organization, and Website to help Google and AI understand the club.
+- **⚡ Offline / Local Preview Ready:** Works immediately when double-clicking files locally with zero CORS restrictions.
+
+---
+
+## 🛠️ Tech Stack
+>>>>>>> 3a5badd33bf80be072ee117b5b8f341bb50b6c71
 
 This project is currently built as a **lightweight static frontend website**:
 
@@ -65,7 +90,11 @@ To allow club officials to update content without touching code, the following s
 
 ---
 
+<<<<<<< HEAD
 ##  Project Structure
+=======
+## 📁 Project Structure
+>>>>>>> 3a5badd33bf80be072ee117b5b8f341bb50b6c71
 
 ```text
 denmak-fc/
@@ -101,7 +130,11 @@ denmak-fc/
 
 ---
 
+<<<<<<< HEAD
 ##  Getting Started
+=======
+## 🚀 Getting Started
+>>>>>>> 3a5badd33bf80be072ee117b5b8f341bb50b6c71
 
 No build tools, bundlers, or package installations are needed to run this project.
 
@@ -119,7 +152,11 @@ No build tools, bundlers, or package installations are needed to run this projec
 
 ---
 
+<<<<<<< HEAD
 ##  How to Update Matches & Scores
+=======
+## 🔄 How to Update Matches & Scores
+>>>>>>> 3a5badd33bf80be072ee117b5b8f341bb50b6c71
 
 To update upcoming games, scores, or league standings, you **do not** need to edit `index.html` or `matches.html`. 
 
@@ -169,7 +206,11 @@ Update Denmak FC's aggregate stats in `"league"` and update their row inside `"s
 
 ---
 
+<<<<<<< HEAD
 ##  Future Roadmap (Admin Dashboard)
+=======
+## 🗺️ Future Roadmap (Admin Dashboard)
+>>>>>>> 3a5badd33bf80be072ee117b5b8f341bb50b6c71
 
 - [ ] **Admin Authentication:** Secure login for club media managers.
 - [ ] **Matchday Score Poster Generator:** Auto-export Instagram/Facebook graphics from match scores.
@@ -179,7 +220,11 @@ Update Denmak FC's aggregate stats in `"league"` and update their row inside `"s
 
 ---
 
+<<<<<<< HEAD
 ##  Contact & Social Media
+=======
+## 📍 Contact & Social Media
+>>>>>>> 3a5badd33bf80be072ee117b5b8f341bb50b6c71
 
 - **Home Ground:** Maganyakulo Ground, Matuga Constituency, Kwale County, Kenya
 - **Email:** [fcdenmak@gmail.com](mailto:fcdenmak@gmail.com)
@@ -190,7 +235,11 @@ Update Denmak FC's aggregate stats in `"league"` and update their row inside `"s
 
 ---
 
+<<<<<<< HEAD
 ##  License
+=======
+## 📄 License
+>>>>>>> 3a5badd33bf80be072ee117b5b8f341bb50b6c71
 
 This project is licensed under the [MIT License](LICENSE) — see the LICENSE file for details.
 
