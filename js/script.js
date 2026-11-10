@@ -68,219 +68,188 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // ============================================
-    // 3. PARTNERS CAROUSEL - COMPLETE WORKING
+    // 3. CAROUSEL INITIALIZER (PARTNERS & NEWS)
     // ============================================
-    
-    // Wait for everything to load
     setTimeout(function() {
-        initCarousel();
-    }, 500);
+        initAllCarousels();
+    }, 300);
 
-    function initCarousel() {
-        console.log('🔄 Initializing carousel...');
-        
-        // Find elements
-        const wrapper = document.querySelector('.partners-carousel-wrapper');
-        if (!wrapper) {
-            console.log('❌ Wrapper not found - check HTML');
-            return;
-        }
-        
-        const track = wrapper.querySelector('.partners-track');
+    function initAllCarousels() {
+        console.log('🔄 Initializing carousels (Partners & News)...');
+        const carousels = document.querySelectorAll('.partners-carousel-wrapper, .news-carousel-wrapper');
+        carousels.forEach(wrapper => setupCarousel(wrapper));
+    }
+
+    function setupCarousel(wrapper) {
+        const track = wrapper.querySelector('.partners-track, .news-track');
+        if (!track) return;
+
+        const slides = Array.from(track.children);
+        if (slides.length === 0) return;
+
         const prevBtn = wrapper.querySelector('.carousel-btn.prev');
         const nextBtn = wrapper.querySelector('.carousel-btn.next');
-        const dotsContainer = wrapper.querySelector('.carousel-dots');
-        
-        if (!track) {
-            console.log('❌ Track not found');
-            return;
-        }
-        
-        const slides = track.querySelectorAll('.partner-logo');
-        if (slides.length === 0) {
-            console.log('❌ No slides found');
-            return;
-        }
-        
-        console.log('✅ Found ' + slides.length + ' slides');
-        console.log('✅ Prev button:', prevBtn ? 'found' : 'NOT found');
-        console.log('✅ Next button:', nextBtn ? 'found' : 'NOT found');
-        
+        const dotsContainer = wrapper.parentElement.querySelector('.carousel-dots, .news-carousel-dots');
+
         let currentIndex = 0;
-        let slidesPerView = getSlidesPerView();
-        let totalSlides = slides.length;
-        let autoSlideInterval;
+        let autoSlideInterval = null;
         let isAnimating = false;
-        
+
         function getSlidesPerView() {
             if (window.innerWidth <= 768) return 1;
             if (window.innerWidth <= 1024) return 2;
             return 3;
         }
-        
+
+        function getMaxIndex() {
+            return Math.max(0, slides.length - getSlidesPerView());
+        }
+
+        function updateSlidePosition() {
+            const slide = slides[0];
+            if (!slide) return;
+            const style = window.getComputedStyle(track);
+            const gap = parseFloat(style.gap) || 30;
+            const slideWidth = slide.getBoundingClientRect().width;
+            const offset = currentIndex * (slideWidth + gap);
+            track.style.transform = 'translateX(-' + offset + 'px)';
+
+            if (dotsContainer) {
+                const dots = dotsContainer.querySelectorAll('.dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === currentIndex);
+                });
+            }
+        }
+
         function goToSlide(index) {
             if (isAnimating) return;
             isAnimating = true;
-            
-            const maxIndex = Math.max(0, totalSlides - slidesPerView);
-            currentIndex = Math.min(index, maxIndex);
-            currentIndex = Math.max(0, currentIndex);
-            
-            const percentage = -(currentIndex * (100 / slidesPerView));
-            track.style.transform = 'translateX(' + percentage + '%)';
-            
-            // Update dots
-            if (dotsContainer) {
-                const dots = dotsContainer.querySelectorAll('.dot');
-                const activeIndex = Math.floor(currentIndex / slidesPerView);
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === activeIndex);
-                });
-            }
-            
+            const maxIndex = getMaxIndex();
+            currentIndex = Math.max(0, Math.min(index, maxIndex));
+            updateSlidePosition();
             setTimeout(function() {
                 isAnimating = false;
             }, 600);
         }
-        
+
         function nextSlide() {
             if (isAnimating) return;
-            const maxIndex = Math.max(0, totalSlides - slidesPerView);
+            const maxIndex = getMaxIndex();
             if (currentIndex >= maxIndex) {
                 goToSlide(0);
             } else {
-                goToSlide(currentIndex + slidesPerView);
+                goToSlide(currentIndex + 1);
             }
         }
-        
+
         function prevSlide() {
             if (isAnimating) return;
+            const maxIndex = getMaxIndex();
             if (currentIndex <= 0) {
-                goToSlide(Math.max(0, totalSlides - slidesPerView));
+                goToSlide(maxIndex);
             } else {
-                goToSlide(currentIndex - slidesPerView);
+                goToSlide(currentIndex - 1);
             }
         }
-        
-        // Create dots
-        if (dotsContainer) {
+
+        function buildDots() {
+            if (!dotsContainer) return;
             dotsContainer.innerHTML = '';
-            const totalDots = Math.ceil(totalSlides / slidesPerView);
+            const maxIndex = getMaxIndex();
+            const totalDots = maxIndex + 1;
+            if (totalDots <= 1) return;
+
             for (let i = 0; i < totalDots; i++) {
                 const dot = document.createElement('button');
-                dot.className = 'dot' + (i === 0 ? ' active' : '');
-                dot.dataset.index = i;
+                dot.className = 'dot' + (i === currentIndex ? ' active' : '');
+                dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
                 dot.addEventListener('click', function() {
-                    goToSlide(parseInt(this.dataset.index) * slidesPerView);
+                    goToSlide(i);
                     resetAutoSlide();
                 });
                 dotsContainer.appendChild(dot);
             }
         }
-        
-        // Auto slide
+
         function startAutoSlide() {
             if (autoSlideInterval) clearInterval(autoSlideInterval);
-            autoSlideInterval = setInterval(nextSlide, 5000);
-        }
-        
-        function resetAutoSlide() {
-            if (autoSlideInterval) {
-                clearInterval(autoSlideInterval);
-                startAutoSlide();
+            if (getMaxIndex() > 0) {
+                autoSlideInterval = setInterval(nextSlide, 4500);
             }
         }
-        
-        // ===== BUTTON EVENT LISTENERS =====
+
+        function stopAutoSlide() {
+            if (autoSlideInterval) {
+                clearInterval(autoSlideInterval);
+                autoSlideInterval = null;
+            }
+        }
+
+        function resetAutoSlide() {
+            stopAutoSlide();
+            startAutoSlide();
+        }
+
+        // Button event listeners with cloning to avoid duplicate bindings
         if (prevBtn) {
-            // Remove old listeners by cloning
             const newPrev = prevBtn.cloneNode(true);
             prevBtn.parentNode.replaceChild(newPrev, prevBtn);
-            
             newPrev.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('⬅️ Previous clicked');
                 prevSlide();
                 resetAutoSlide();
             });
         }
-        
+
         if (nextBtn) {
-            // Remove old listeners by cloning
             const newNext = nextBtn.cloneNode(true);
             nextBtn.parentNode.replaceChild(newNext, nextBtn);
-            
             newNext.addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('➡️ Next clicked');
                 nextSlide();
                 resetAutoSlide();
             });
         }
-        
+
         // Pause on hover
-        track.addEventListener('mouseenter', function() {
-            if (autoSlideInterval) {
-                clearInterval(autoSlideInterval);
-            }
-        });
-        
-        track.addEventListener('mouseleave', function() {
-            startAutoSlide();
-        });
-        
-        // Touch support
+        wrapper.addEventListener('mouseenter', stopAutoSlide);
+        wrapper.addEventListener('mouseleave', startAutoSlide);
+
+        // Touch swipe support
         let touchStartX = 0;
         track.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
+            touchStartX = e.changedTouches[0].clientX;
         }, { passive: true });
-        
+
         track.addEventListener('touchend', function(e) {
-            const diff = touchStartX - e.changedTouches[0].screenX;
-            if (Math.abs(diff) > 50) {
-                if (diff > 0) {
-                    nextSlide();
-                } else {
-                    prevSlide();
-                }
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) {
+                if (diff > 0) nextSlide();
+                else prevSlide();
                 resetAutoSlide();
             }
         }, { passive: true });
-        
-        // Window resize
+
+        // Resize handler
         let resizeTimer;
         window.addEventListener('resize', function() {
             clearTimeout(resizeTimer);
             resizeTimer = setTimeout(function() {
-                const newPerView = getSlidesPerView();
-                if (newPerView !== slidesPerView) {
-                    slidesPerView = newPerView;
-                    // Rebuild dots
-                    if (dotsContainer) {
-                        dotsContainer.innerHTML = '';
-                        const totalDots = Math.ceil(totalSlides / slidesPerView);
-                        for (let i = 0; i < totalDots; i++) {
-                            const dot = document.createElement('button');
-                            dot.className = 'dot' + (i === 0 ? ' active' : '');
-                            dot.dataset.index = i;
-                            dot.addEventListener('click', function() {
-                                goToSlide(parseInt(this.dataset.index) * slidesPerView);
-                                resetAutoSlide();
-                            });
-                            dotsContainer.appendChild(dot);
-                        }
-                    }
-                    goToSlide(0);
-                }
-            }, 300);
+                const maxIndex = getMaxIndex();
+                if (currentIndex > maxIndex) currentIndex = maxIndex;
+                buildDots();
+                updateSlidePosition();
+            }, 200);
         });
-        
-        // Start
-        goToSlide(0);
+
+        // Initialize
+        buildDots();
+        updateSlidePosition();
         startAutoSlide();
-        console.log('✅ Carousel ready!');
+        console.log('✅ Carousel initialized for:', wrapper.className);
     }
 
     // ============================================
@@ -403,44 +372,49 @@ document.addEventListener('DOMContentLoaded', function() {
         // Embedded fallback data for offline / file:// protocol
         const fallbackData = {
             league: {
-                name: "FKF Division Two Northern Zone",
-                pool: "Pool A",
-                season: "2025/2026",
-                clubStats: { points: 70, position: 1, matches: 28, won: 22, drawn: 4, lost: 2, goalDifference: "+36" }
+                name: "FKF Division 1",
+                pool: "Zone A",
+                season: "2026/2027",
+                clubStats: { points: 0, position: 9, matches: 0, won: 0, drawn: 0, lost: 0, goalDifference: "0" }
             },
             nextMatch: {
-                homeTeam: "Denmak FC",
-                awayTeam: "Rwafa FC",
-                date: "August 8, 2026",
+                homeTeam: "Congo Boys",
+                awayTeam: "Denmak FC",
+                date: "November 14, 2026",
                 time: "3:00 PM EAT",
-                venue: "Kombani Ground, Kombani",
-                competition: "FKF Division Two - Pool A",
-                ticketInfo: "Free Entry / VIP KSh 200"
+                venue: "Serani Ground, Mombasa",
+                competition: "FKF Division 1 Zone A",
+                ticketInfo: "Free Entry"
             },
             fixtures: [
-                { id: "fix-1", date: "Aug 8, 2026", time: "3:00 PM", homeTeam: "Denmak FC", awayTeam: "Rwafa FC", venue: "Kombani Ground" },
-                { id: "fix-2", date: "Aug 17, 2026", time: "2:00 PM", homeTeam: "Young Bulls", awayTeam: "Denmak FC", venue: "Mombasa Sports Club" },
-                { id: "fix-3", date: "Aug 24, 2026", time: "3:00 PM", homeTeam: "Denmak FC", awayTeam: "Wayzata Boys", venue: "Maganyakulo Ground" },
-                { id: "fix-4", date: "Sep 2, 2026", time: "3:00 PM", homeTeam: "Denmak FC", awayTeam: "Kisumu Ndogo", venue: "Maganyakulo Ground" },
-                { id: "fix-5", date: "Sep 10, 2026", time: "3:00 PM", homeTeam: "Good Hope", awayTeam: "Denmak FC", venue: "Msambweni Ground" }
+                { id: "fix-1", date: "Nov 14, 2026", time: "3:00 PM", homeTeam: "Congo Boys", awayTeam: "Denmak FC", venue: "Serani Ground", competition: "FKF Division 1 Zone A" },
+                { id: "fix-2", date: "Nov 18, 2026", time: "2:00 PM", homeTeam: "Young Bulls", awayTeam: "Denmak FC", venue: "Mombasa Sports Club", competition: "FKF Division 1 Zone A" },
+                { id: "fix-3", date: "Nov 22, 2026", time: "3:00 PM", homeTeam: "Denmak FC", awayTeam: "Wayzata Boys", venue: "Maganyakulo Ground", competition: "FKF Division 1 Zone A" }
             ],
             results: [
                 { date: "Jul 25, 2026", opponent: "Spaki Youth", location: "A", score: "0 - 3", status: "W", outcome: "win" },
                 { date: "Jul 18, 2026", opponent: "Ubuntu FC", location: "H", score: "3 - 1", status: "W", outcome: "win" },
                 { date: "Jul 11, 2026", opponent: "Matano Mane", location: "H", score: "2 - 0", status: "W/O", outcome: "win" },
                 { date: "Jul 5, 2026", opponent: "Inter Dabaso", location: "H", score: "3 - 0", status: "W", outcome: "win" },
-                { date: "Jun 28, 2026", opponent: "Junior FC", location: "A", score: "1 - 2", status: "W", outcome: "win" },
-                { date: "Jun 21, 2026", opponent: "Congo Boyz", location: "H", score: "2 - 1", status: "W", outcome: "win" }
+                { date: "Jul 25, 2026", opponent: "Junior FC", location: "A", score: "1 - 2", status: "W", outcome: "win" }
             ],
             standings: [
-                { rank: 1, team: "Denmak FC", played: 28, won: 22, drawn: 4, lost: 2, gd: "+36", points: 70, isClub: true },
-                { rank: 2, team: "Rwafa FC", played: 30, won: 16, drawn: 12, lost: 2, gd: "+33", points: 60, isClub: false },
-                { rank: 3, team: "Yanga FC KE", played: 28, won: 17, drawn: 5, lost: 6, gd: "+18", points: 56, isClub: false },
-                { rank: 4, team: "Kisumu Ndogo", played: 31, won: 14, drawn: 11, lost: 6, gd: "+19", points: 53, isClub: false },
-                { rank: 5, team: "Good Hope", played: 27, won: 15, drawn: 7, lost: 5, gd: "+33", points: 52, isClub: false },
-                { rank: 6, team: "Sparki Youth", played: 29, won: 13, drawn: 8, lost: 8, gd: "+12", points: 47, isClub: false },
-                { rank: 7, team: "Ubuntu FC", played: 28, won: 11, drawn: 9, lost: 8, gd: "+5", points: 42, isClub: false },
-                { rank: 8, team: "Young Bulls", played: 28, won: 10, drawn: 8, lost: 10, gd: "0", points: 38, isClub: false }
+                { rank: 1, team: "Teita Estate", played: 1, gd: "+1", points: 3, isClub: false },
+                { rank: 2, team: "Gituru", played: 1, gd: "+1", points: 3, isClub: false },
+                { rank: 3, team: "KAPA", played: 1, gd: "+1", points: 3, isClub: false },
+                { rank: 4, team: "Kahawa United", played: 1, gd: "0", points: 1, isClub: false },
+                { rank: 5, team: "Simba Apparel", played: 1, gd: "0", points: 1, isClub: false },
+                { rank: 6, team: "Bumbani Stars", played: 0, gd: "0", points: 0, isClub: false },
+                { rank: 7, team: "Congo Boys", played: 0, gd: "0", points: 0, isClub: false },
+                { rank: 8, team: "Delmonte", played: 0, gd: "0", points: 0, isClub: false },
+                { rank: 9, team: "Denmak FC", played: 0, gd: "0", points: 0, isClub: true },
+                { rank: 10, team: "Green Berets", played: 0, gd: "0", points: 0, isClub: false },
+                { rank: 11, team: "Kibra United", played: 0, gd: "0", points: 0, isClub: false },
+                { rank: 12, team: "T15 - A", played: 0, gd: "0", points: 0, isClub: false },
+                { rank: 13, team: "T16 - A", played: 0, gd: "0", points: 0, isClub: false },
+                { rank: 14, team: "Zetech Titans", played: 1, gd: "-1", points: 0, isClub: false, relegation: true },
+                { rank: 15, team: "Royal Fresh", played: 1, gd: "-1", points: 0, isClub: false, relegation: true },
+                { rank: 16, team: "Strathmore Uni.", played: 1, gd: "-1", points: 0, isClub: false, relegation: true }
             ]
         };
 
@@ -524,18 +498,31 @@ document.addEventListener('DOMContentLoaded', function() {
         // 4. Update Standings Table on Match Centre page
         const standingsTbody = document.querySelector('.standings tbody');
         if (standingsTbody && data.standings) {
-            standingsTbody.innerHTML = data.standings.map(row => `
-                <tr class="${row.isClub ? 'highlight' : ''}">
-                    <td>${row.rank}</td>
-                    <td><strong>${row.team}</strong>${row.isClub ? ' ⭐' : ''}</td>
-                    <td>${row.played}</td>
-                    <td>${row.won}</td>
-                    <td>${row.drawn}</td>
-                    <td>${row.lost}</td>
-                    <td>${row.gd}</td>
-                    <td><strong>${row.points}</strong></td>
-                </tr>
-            `).join('');
+            const numCols = document.querySelectorAll('.standings thead tr th').length;
+            if (numCols <= 5) {
+                standingsTbody.innerHTML = data.standings.map(row => `
+                    <tr class="${row.isClub ? 'highlight' : ''} ${row.relegation ? 'relegation' : ''}">
+                        <td>${row.rank}</td>
+                        <td><strong>${row.team}</strong>${row.isClub ? ' ⭐' : ''}</td>
+                        <td>${row.played}</td>
+                        <td>${row.gd}</td>
+                        <td><strong>${row.points}</strong></td>
+                    </tr>
+                `).join('');
+            } else {
+                standingsTbody.innerHTML = data.standings.map(row => `
+                    <tr class="${row.isClub ? 'highlight' : ''} ${row.relegation ? 'relegation' : ''}">
+                        <td>${row.rank}</td>
+                        <td><strong>${row.team}</strong>${row.isClub ? ' ⭐' : ''}</td>
+                        <td>${row.played}</td>
+                        <td>${row.won != null ? row.won : '-'}</td>
+                        <td>${row.drawn != null ? row.drawn : '-'}</td>
+                        <td>${row.lost != null ? row.lost : '-'}</td>
+                        <td>${row.gd}</td>
+                        <td><strong>${row.points}</strong></td>
+                    </tr>
+                `).join('');
+            }
         }
 
         // 5. Update Upcoming Fixtures on Match Centre page
